@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&family=Roboto+Condensed:ital,wght@1,300&display=swap');
+* {
+  font-family: Raleway;
+}
+
+.ad-userdetails {
+    display: block;
+    padding: .3em;
+    background-color: lightblue;
+}
+.left {
+    padding: .2em 0em 0em .2em;
+}
+.center {
+    text-align: center;
+}
+.available-indicator {
+    font-size: small;
+}
+.ad-container {
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 1em;
+    width: 65%;
+    padding: .5em;
+}
+.ad-main {
+    padding: 1em 1em 0em 1em;
+}
+.ad-footer {
+    bottom: 0;
+    width: 100%;
+    background-color:beige;
+    border: 0px solid black;
+    border-radius: 0em 0em 1em 1em;
+    padding: 8px;
+    width: 34%;
+}
+.ad-available {
+    background-color:green;
+    border: 0 solid;
+    border-radius: .5em;
+    padding: .4em;
+    color: white;
+}
+.ad-not-available {
+    background-color:grey;
+    border: 0 solid;
+    border-radius: .5em;
+    padding: .4em;
+    color: white;
+}
+.avatar-container {
+    width: 3em;
+    height: 3em;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: .5em;
+    float: left;
+}
+.avatar-container img {
+    height: 100%;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+}
+.view-profile {
+    float:right;
+}
