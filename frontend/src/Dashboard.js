@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
+import { ApiClient } from "./apiClient";
+import AuthContext from "./AuthProvider";
+import NaviBar from "./NaviBar";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import NavDropdown from 'react-bootstrap/NavDropdown'
-import Profile from "./Profile";
-import NaviBar from "./NaviBar";
-import { Route } from 'react-router';
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
+import Permissions from "./components/FilePermissions";
+import "./style.css";
 import {
   BsLinkedin,
   BsGithub,
@@ -19,42 +14,25 @@ import {
   BsFillHandThumbsDownFill,
   BsFillEnvelopeFill,
   BsTrashFill,
+  BsCursor,
 } from "react-icons/bs";
-import "./style.css";
+//import { faBiohazard } from "@fortawesome/free-solid-svg-icons";
 
-function Dashboard(props) {
-const navigate = useNavigate();
+function Dashboard() {
+  const [users, cUsers] = useState([]);
+  const [profile, cProfile] = useState([]);
+  const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
+  const client = new ApiClient(auth.token);
+  // console.log(`Dashboard props`,props)
 
-  console.log(`Dashboard props`,props)
-  // const [datas, cDatas] = useState([]);
-  const [current, cCurrent] = useState(undefined);
-  // const [user, cUser] = useState([]);
+  const refreshList = () => {
+    client.getProfiles().then((response) => cProfile(response.data));
 
-  // const currentUserEmail = window.localStorage.getItem("email")
-
-  // const refreshUser = () => {
-  //   datas.map((current) => {
-  //     if(current.email == currentUserEmail){
-  //     cUser(current)
-  //     }
-  //   })
-  // }
-
-  // const refreshList = () => {
-  //   props.client.getDatas().then((response) => props.cDatas(response.data));
-  // };
-
-  const deleteData = (id) => {
-    props.client.deleteDatas(id).then(() => props.refreshList());
-  };
-
-  const updateData = (data) => {
-    cCurrent(data);
   };
 
   useEffect(() => {
-    props.refreshList();
-    // refreshUser()
+    refreshList();
   }, []);
 
   const isAvailable = (bCheck) => {
@@ -73,114 +51,80 @@ const navigate = useNavigate();
     }
   };
 
-  // const buildsearch = (e) => {
-  //   e.preventDefault();
-  //   // console.log(`Searched for`, e.target.search.value);
-  //   // console.log(`datas`, datas);
-  //   let filtered = props.datas.filter((current) =>
-  //     current.email
-  //       .toLowerCase()
-  //       .includes(e.target.search.value.toLowerCase())
-  //   );
-  //   props.cDatas(filtered);
-  //   // console.log(`filtered =`, filtered);
-  // };
-
-// const buildnav = () => {
-//     return (
-// <Navbar bg="light" expand="lg">
-// <Container fluid>
-//   <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
-//   <Navbar.Toggle aria-controls="navbarScroll" />
-//   <Navbar.Collapse id="navbarScroll">
-//     <Nav
-//       className="me-auto my-2 my-lg-0"
-//       style={{ maxHeight: '100px' }}
-//       navbarScroll
-//     >
-//       <Nav.Link href="#action1">Home</Nav.Link>
-//       <Nav.Link href="#action2">Link</Nav.Link>
-//       <NavDropdown title="Link" id="navbarScrollingDropdown">
-//         <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-//         <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-//         <NavDropdown.Divider />
-//         <NavDropdown.Item href="#action5">
-//           Something else here
-//         </NavDropdown.Item>
-//       </NavDropdown>
-//       <Button variant="warning" onClick={() => props.logOut()}>
-//         Logout
-//       </Button>
-//       {/* <Button variant="warning" onClick={<Profile/>}>
-//         Profile
-//       </Button> */}
-//       {/* <Nav.Link href="#action2">{props.user.fname}</Nav.Link> */}
-//     </Nav>
-
-//     <Form onSubmit={(e) => buildsearch(e)} className="d-flex">
-//       <FormControl
-//         type="search"
-//         name="search"
-//         placeholder="Search Profiles"
-//         className="me-2"
-//         aria-label="Search"
-//       />
-//       <Button variant="outline-success" type="submit">Search</Button>
-//     </Form>
-//     <Button variant="outline-success" type="submit" onClick={() => refreshList()}>Refresh</Button>
-//   </Navbar.Collapse>
-// </Container>
-// </Navbar>
-//       )
-// }
+  const filterProfile = (data) => {
+    let theProfile = profile.filter((current) =>
+      current.email.toLowerCase().includes(data)
+    );
+    cProfile(theProfile[0]);
+    navigate("/view");
+  };
 
   const buildcards = () => {
-    return props.datas.map((current) => {
+    // character limiting
+    const bioCharLimits = (current) => {
+      let bio = current.bio;
+      if (bio == null) {
+        return;
+      } else {
+        if (bio.length <= 250) {
+          return bio;
+        }
+        const toShow = bio.substring(0, 250) + " ...";
+        return (
+          <>
+            {toShow}{" "}
+            <span
+              style={{ fontWeight: "bolder", cursor: "pointer" }}
+              onClick={() => filterProfile(current.email)}
+            >
+              read more
+            </span>
+          </>
+        );
+      }
+    };
+
+    return profile.map((current) => {
       return (
-        //   console.log(current)
         <center>
           <Card key={current._id} id="profileCards" className="ad-container">
-            {/* <span className="ad-main"> */}
-              <Card.Header className="ad-userdetails">
-                <Card.Text as="h1">
-                  <div className="avatar-container">
-                    <img src={current.picture} />
-                  </div>
-                  </Card.Text>
-                  <div width="15"></div>
-                  <Card.Text>
-                  <Card.Text as="h3">{current.fname} {current.sname}
-                  <span className="view-profile"><Button variant="outline-primary" onClick={()=>navigate("/profile")}>View</Button></span></Card.Text>
+            <Card.Header
+              className="ad-userdetails"
+              onClick={() => filterProfile(current.email)}
+            >
+              <Card.Text as="h1">
+                <div className="avatar-container">
+                  <img src={current.picture} />
+                </div>
+              </Card.Text>
+              <div className="avatar-container spacer"> </div>
+              <Card.Text>
+                <Card.Text className="available-indicator float-right">
+                  {isAvailable(current.available)}
                 </Card.Text>
-                <Card.Text className="available-indicator">{isAvailable(current.available)}</Card.Text>
-                <Card.Title as="h6">Location: {current.location}</Card.Title>
+                <Card.Text as="h3">
+                  {current.fname} {current.sname}
+                </Card.Text>
+              </Card.Text>
+              <div className="avatar-container spacer"> </div>
+              <Button
+                className="float-right"
+                size="sm"
+                onClick={() => filterProfile(current.email)}
+                variant="secondary"
+              >
+                View Profile
+              </Button>
+              <Card.Title as="h6">Location: {current.location}</Card.Title>
+            </Card.Header>
+            <br />
+            <Card.Text>{bioCharLimits(current)}</Card.Text>
+            {/* <Card.Text>{current.bio}</Card.Text> */}
 
-              </Card.Header>
-              <br />
-              <Card.Text>{current.bio}</Card.Text>
-
-              <Card.Text className="center">
-              <a href={current.cv}>
-                <Button variant="success">Download CV</Button>
-              </a>&nbsp;&nbsp;
-              <a href={current.portfolio}>
-                <Button variant="success">Portfolio</Button>
-              </a>
-              </Card.Text>
-              {/* <Card.Text name="contact">
-                <BsGithub /> <a href={current.github} target="_new">{current.github}</a>
-              </Card.Text>
-              <Card.Text>
-                <BsLinkedin /> <a href={current.linkedin} target="_new">{current.linkedin}</a>
-              </Card.Text>
-              <Card.Text>
-                <BsFillEnvelopeFill />{" "}
-                <a href={'mailto:' + current.email} target="_new">{current.email}</a>
-              </Card.Text> */}
-            {/* </span> */}
+            {/*   <Permissions refreshList={props.refreshList} client={props.client} user={props.user} current={current} profile={props.profile} cProfile={props.cProfile} users={props.users}/> */}
           </Card>
 
-          <div className="ad-footer">
+          {/* <div className="ad-footer">
             <strong>Admin Tools: </strong>&nbsp;&nbsp;
             <Button variant="warning" onClick={() => updateData(current)}>
                 {" "}
@@ -191,9 +135,7 @@ const navigate = useNavigate();
                 {" "}
                 <BsTrashFill />
               </Button>
-
-            </div>
-
+            </div> */}
 
           <br />
         </center>
@@ -201,16 +143,11 @@ const navigate = useNavigate();
     });
   };
 
-
-// console.log(`user`,user)
   return (
     <>
-
-      {/* <h1>{userGroup()}</h1> */}
-      {/* {buildnav()} */}
-    <br/>
+    <NaviBar/>
+      <br />
       {buildcards()}
-
     </>
   );
 }

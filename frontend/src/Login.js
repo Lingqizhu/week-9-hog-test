@@ -25,7 +25,7 @@ function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
     //const response =
-    await fetch("http://localhost:3001/auth", {
+    await fetch("http://localhost:3001/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,8 +39,11 @@ function Login() {
     .then((data)=>{
       const role = data.role;
       const token = data.token;
+      const location = data.location;
+      const available = data.available;
+      const picture = data.picture;
       loggedIn(token)
-      setAuth({email,password,role,token})
+      setAuth({email,password,role,token,location,available,picture})
       console.log(role)
       console.log(token)
       navigate("/home")

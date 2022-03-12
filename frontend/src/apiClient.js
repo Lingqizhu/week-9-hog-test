@@ -5,6 +5,7 @@ export class ApiClient {
 
   constructor(token){
     this.token = token;
+    /* this.logoutHandler = logoutHandler; */
   }
 
   apiCall(method, url, data) {
@@ -38,22 +39,33 @@ export class ApiClient {
   }
 
   login(email,password){
-    return this.apiCall("post",`${url}auth`, {
-      email:email,
+    return this.apiCall("post",`${url}login`, {
+      email: email,
       password: password
     })
   }
 
-  getDatas(){
-    return this.authenticatedCall('get',url);
+  register(email,password){
+    return this.apiCall("post",`${url}register`,{
+      email:email,
+      password:password
+    })
   }
 
-  deleteDatas(id){
-    return  this.authenticatedCall("delete",`${url}${id}`);
+  getProfiles() {
+    return this.authenticatedCall("get", url);
   }
 
-  updateDatas(id,fname,sname,bio,cv,github,linkedin,portfolio,available,email,location,picture){
-    return this.authenticatedCall("put",`${url}${id}`,{fname,sname,bio,cv,github,linkedin,portfolio,available,email,location,picture});
+  deleteProfile(id){
+    return  this.authenticatedCall("delete",`${url}delete/${id}`);
+  }
+
+  addProfile(id,username,email,bio,cv,github,linkedin,portfolio,available,location,picture) {
+    return this.authenticatedCall("post", url, { username,email,bio,cv,github,linkedin,portfolio,available,location,picture});
+  }
+
+  updateProfile(id,username,email,bio,cv,github,linkedin,portfolio,available,location,picture) {
+    return this.authenticatedCall("put", `${url}update/${id}`, {username,email,bio,cv,github,linkedin,portfolio,available,location,picture});
   }
 
 }

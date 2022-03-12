@@ -7,20 +7,16 @@ import { ApiClient } from "./apiClient";
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./home";
-//import Dashboard from "./Dashboard";
-//import Profile from "./Profile";
-//import NaviBar from "./NaviBar";
+import Dashboard from "./Dashboard";
+import Profile from "./Profile";
+import Employer from "./Employer";
+import View from "./View";
+import NaviBar from "./NaviBar";
 import EmployerDashboard from "./EmployerDashboard";
 import ParticipantDashboard from "./ParticipantDashboard";
 import TdaDashboard from "./TdaDashboard";
 import Layout from "./Layout";
 import RequireAuth from "./RequireAuth";
-
-/* const ROLES = {
-  participant:  2001,
-  employer: 1984,
-  tda: 5150,
-}; */
 
 const App = () => {
   return (
@@ -31,14 +27,32 @@ const App = () => {
         <Route path="/home" element={<Home />} />
 
         <Route element={<RequireAuth allowedRoles={["participant","tda"]} />}>
-          <Route path="ParticipantDashboard" element={<ParticipantDashboard />}/>
+          <Route path="ParticipantDashboard" element={<ParticipantDashboard/>} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={["participant","tda","employer"]} />}>
+          <Route path="EmployerDashboard" element={<EmployerDashboard/>} />
+          </Route>
+        <Route element={<RequireAuth allowedRoles={["participant","tda","employer"]} />}>
+          <Route path="TdaDashboard" element={<TdaDashboard/>} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={["participant","tda","employer"]} />}>
+          <Route path="NaviBar" element={<NaviBar/>} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={["participant","tda"]} />}>
+          <Route path="Profile" element={<Profile />}/>
         </Route>
         <Route element={<RequireAuth allowedRoles={"employer"} />}>
-          <Route path="EmployerDashboard" element={<EmployerDashboard />} />
+          <Route path="Employer" element={<Employer/>} />
         </Route>
-        <Route element={<RequireAuth allowedRoles={"tda"} />}>
-          <Route path="TdaDashboard" element={<TdaDashboard />} />
+        <Route element={<RequireAuth allowedRoles={["participant","tda","employer"]} />}>
+          <Route path="View" element={<View/>} />
         </Route>
+        <Route element={<RequireAuth allowedRoles={["participant","tda","employer"]} />}>
+          <Route path="Dashboard" element={<Dashboard/>} />
+        </Route>
+
+
       </Route>
     </Routes>
   );

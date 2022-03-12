@@ -7,13 +7,14 @@ const morgan = require("morgan");
 const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
-
-const { User } = require("../models/user");
-const { Data } = require("../models/data");
 const bcrypt = require("bcryptjs");
+//const {canViewData} = require("./project")
+const { User } = require("../models/user");
+const { Profile } = require("../models/profile");
+
 
 mongoose.connect(
-  "mongodb+srv://Lingqizhu:Peggy1980122@cluster0.k9dxo.mongodb.net/HOG?retryWrites=true&w=majority"
+  "mongodb+srv://Lingqizhu:Peggy1980122@cluster0.k9dxo.mongodb.net/Jobsite?retryWrites=true&w=majority"
 );
 
 // defining the Express app
@@ -38,10 +39,10 @@ app.post("/register", async (req, res) => {
     password: newPassword,
   });
   await user.save();
-  res.send({ status: "ok" });
+  res.send({message:"new user registered" });
 });
 
-app.post("/auth", async (req, res) => {
+app.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     return res.sendStatus(401);
@@ -59,6 +60,10 @@ app.post("/auth", async (req, res) => {
   }
 });
 
+app.get('/userlist',function(req,res){
+  User.find().then((users) => res.send(users))
+});
+
 app.use(async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const user = await User.findOne({ token: authHeader });
@@ -70,30 +75,50 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.get('/userlist',function(req,res){
-  User.find().then((users) => res.send(users))
-});
+
 // defining CRUD operations
 app.get("/", async (req, res) => {
-  res.send(await Data.find());
+  res.send(await Profile.find());
 });
+
+app.get("/:id", async (req, res) => {
+  res.send(await Profile.findOne({ _id: ObjectId(req.params.id) }));
+});
+
+app.get('/location/:location', async(req, res)=>{
+  res.send(await Profile.find({location: req.params.location}))
+})
+
+app.get('/email/:email', async(req, res)=>{
+  res.send(await Profile.find({email: req.params.email}))
+})
+
+app.get('/available/:available', async(req, res)=>{
+  res.send(await Profile.find({available: req.params.available}))
+})
+
 
 app.post("/", async (req, res) => {
-  const newData = req.body;
-  const data = new Data(newData);
-  await data.save();
-  res.send({ message: "New data inserted." });
+  const newProfile= req.body;
+  const profile = new Profile(newProfile);
+  await profile.save();
+  res.send({ message: "New profile inserted." });
 });
 
-app.delete("/:id", async (req, res) => {
-  await Data.deleteOne({ _id: ObjectId(req.params.id) });
+app.delete("/delete/:id", async (req, res) => {
+  await Profile.deleteOne({ _id: ObjectId(req.params.id) });
   res.send({ message: "Profile removed." });
 });
 
-app.put("/:id", async (req, res) => {
-  await Data.findOneAndUpdate({ _id: ObjectId(req.params.id) }, req.body);
+app.put("/update/:id", async (req, res) => {
+  await Profile.findOneAndUpdate({ _id: ObjectId(req.params.id) }, req.body);
   res.send({ message: "Profile updated." });
 });
+
+/* app.put("/employer/:id", async (req, res) => {
+  await Employer.findOneAndUpdate({ _id: ObjectId(req.params.id) }, req.body);
+  res.send({ message: "Profile updated." });
+}); */
 
 // starting the server
 app.listen(3001, () => {
