@@ -4,7 +4,11 @@ import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
 import axios from "axios";
 
+import { useDispatch,useSelector } from "react-redux";
+
 export default function MyProfile() {
+
+  const dispatch = useDispatch();
   const [profiles, setProfiles] = useState([]);
 
   const deleteHandler = (id) => {

@@ -21,14 +21,15 @@ function Login() {
   //const [token, changeToken] = useState(window.localStorage.getItem("token"));
   const dispatch = useDispatch();
 
-  //const userLogin = useSelector((state) => state.userLogin);
- /*  const { userInfo } = userLogin; */
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
 
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
+    navigate("/myprofile");
   };
 
   return (

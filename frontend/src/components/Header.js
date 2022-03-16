@@ -8,21 +8,22 @@ import {
   NavDropdown,
   Button,
 } from "react-bootstrap";
-//import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
-//import { logout } from "../actions/userActions";
+import { logout } from "../actions/userActions";
 
 function Header() {
-  /* const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  /* const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin; */
 
   const logoutHandler = () => {
     dispatch(logout());
+    navigate("/");
   };
 
-  useEffect(() => {}, [userInfo]); */
+ // useEffect(() => {}, [userInfo]);
 const navigate=useNavigate();
   return (
     <Container>
@@ -40,10 +41,7 @@ const navigate=useNavigate();
               <Nav.Link href="/myprofile">My Profile</Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{
-                  localStorage.removeItem("userInfo");
-                  navigate("/");
-                }}>
+                <NavDropdown.Item onClick={logoutHandler}>
                   Logout
                 </NavDropdown.Item>
                 <NavDropdown.Divider />

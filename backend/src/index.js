@@ -61,7 +61,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-/* app.use(async (req, res, next) => {
+app.use(async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const user = await User.findOne({ token: authHeader });
 
@@ -70,7 +70,7 @@ app.post("/login", async (req, res) => {
   } else {
     res.sendStatus(403);
   }
-}); */
+});
 
 app.get('/userlist',function(req,res){
   User.find().then((users) => res.send(users))
@@ -98,7 +98,7 @@ app.get('/available/:available', async(req, res)=>{
 })
 
 
-app.post("/", async (req, res) => {
+app.post("/profile", async (req, res) => {
   const newProfile= req.body;
   const profile = new Profile(newProfile);
   await profile.save();

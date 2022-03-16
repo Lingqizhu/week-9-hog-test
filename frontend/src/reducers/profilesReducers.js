@@ -11,9 +11,30 @@ import {
     PROFILES_LIST_FAIL,
     PROFILES_LIST_REQUEST,
     PROFILES_LIST_SUCCESS,
+    PROFILES_LIST,
+    PROFILE_CREATE,
+    PROFILE_UPDATE,
+    PROFILE_DELETE
   } from "../constants/profilesConstants";
 
-  export const profileListReducer = (state = { profiles: [] }, action) => {
+  export const profilesReducer=(state = {profiles:[]}, action) => {
+    switch (action.type) {
+      case PROFILES_LIST:
+        return action.payload;
+      /* case LIKE:
+        return profiles.map((post) => (post._id === action.payload._id ? action.payload : post)); */
+      /* case PROFILE_CREATE:
+        return [...profiles, action.payload];
+      case PROFILE_UPDATE:
+        return profiles.map((profile) => (profile._id === action.payload._id ? action.payload : profile));
+      case PROFILE_DELETE:
+        return profiles.filter((profile) => profile._id !== action.payload); */
+      default:
+        return state;
+    }
+  };
+
+  /* export const profileListReducer = (state = { profiles: [] }, action) => {
     switch (action.type) {
       case PROFILES_LIST_REQUEST:
         return { loading: true };
@@ -67,4 +88,4 @@ import {
       default:
         return state;
     }
-  };
+  }; */

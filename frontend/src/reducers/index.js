@@ -1,27 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-//import thunk from "redux-thunk";
-//import { composeWithDevTools } from "redux-devtools-extension";
 
-/* import {
-  profileCreateReducer,
-  profileDeleteReducer,
-  profileListReducer,
-  profileUpdateReducer,
-} from "./reducers/profilesReducers"; */
+import {profilesReducer} from "./profilesReducers";
 
-import {
-  userLoginReducer,
-  //userRegisterReducer,
-} from "./userReducers";
+import {userLoginReducer} from "./userReducers";
 
 const Reducer = combineReducers({
   userLogin: userLoginReducer,
- // userRegister: userRegisterReducer,
-
-  /* profileList: profileListReducer,
-  profileCreate: profileCreateReducer,
-  profileDelete: profileDeleteReducer,
-  profileUpdate: profileUpdateReducer, */
+ profilesList:profilesReducer
 });
 
 /* const userInfoFromStorage = localStorage.getItem("userInfo")

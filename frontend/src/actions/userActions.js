@@ -14,19 +14,18 @@ import axios from "axios";
 
 export const login = (email, password) => async (dispatch) => {
 
-
-   /*  const config = {
+    const config = {
       headers: {
         "Content-type": "application/json",
       },
-    }; */
+    };
     const { data } = await axios.post(
       "http://localhost:3001/login",
       {
         email,
         password,
       },
-
+      config
     );
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     window.localStorage.setItem("userInfo", JSON.stringify(data));
