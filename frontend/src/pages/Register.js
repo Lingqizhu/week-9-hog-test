@@ -8,6 +8,7 @@ function Register() {
 
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   async function registerUser(event) {
@@ -19,7 +20,8 @@ function Register() {
       },
       body: JSON.stringify({
         email,
-        password,
+        username,
+        password
       }),
     });
   }
@@ -35,6 +37,14 @@ function Register() {
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="email"
+          id="registerinput"
+        />
+        <br />
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          type="text"
+          placeholder="username"
           id="registerinput"
         />
         <br />

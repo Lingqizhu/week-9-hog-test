@@ -45,9 +45,10 @@ export class ApiClient {
     })
   }
 
-  register(email,password){
+  register(email,password,username){
     return this.apiCall("post",`${url}register`,{
       email:email,
+      username:username,
       password:password
     })
   }
@@ -60,12 +61,12 @@ export class ApiClient {
     return  this.authenticatedCall("delete",`${url}delete/${id}`);
   }
 
-  addProfile(id,username,email,bio,cv,github,linkedin,portfolio,available,location,picture) {
-    return this.authenticatedCall("post", url, { username,email,bio,cv,github,linkedin,portfolio,available,location,picture});
+  addProfile(id,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) {
+    return this.authenticatedCall("post", url, { fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture});
   }
 
-  updateProfile(id,username,email,bio,cv,github,linkedin,portfolio,available,location,picture) {
-    return this.authenticatedCall("put", `${url}update/${id}`, {username,email,bio,cv,github,linkedin,portfolio,available,location,picture});
+  updateProfile(id,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) {
+    return this.authenticatedCall("put", `${url}update/${id}`, {fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture});
   }
 
 }

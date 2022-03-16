@@ -12,7 +12,6 @@ const userSchema = mongoose.Schema({
   role: {
     type: String,
     default:"participant"},
-  token: String,
   username: String,
 },
 {

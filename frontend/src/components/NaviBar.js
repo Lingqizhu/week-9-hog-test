@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import AuthContext from "./AuthProvider";
 import { ApiClient } from "./apiClient";
@@ -24,6 +24,7 @@ function NaviBar(){
     navigate("/");
   };
 
+  console.log(auth)
  /*  const searchByEmail = (e) => {
     e.preventDefault();
     //console.log(current)
@@ -46,40 +47,19 @@ function NaviBar(){
       <Navbar.Brand href="#">Jobsite</Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
-        <Nav
-          className="me-auto my-2 my-lg-0"
-          style={{ maxHeight: '100px' }}
-          navbarScroll
-        >
-          <Nav.Link href="/Dashboard" /* onClick={profile==""} */ style={{marginTop: "4px"}}>
-            Dashboard
-            </Nav.Link>
-          <Nav.Link> <img src={auth.picture} className="nav-picture" /> </Nav.Link>
-
+        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }}  navbarScroll>
           <NavDropdown title={auth.email} id="navbarScrollingDropdown" style={{marginTop: "4px"}}>
-            <NavDropdown.Item href="/profile"/*  onClick={profile==""} */>Edit Profile</NavDropdown.Item>
-            <NavDropdown.Item href="/view" /* onClick={cProfile(user)} */>View Profile</NavDropdown.Item>
+            <Link to="/home"/*  onClick={profile==""} */>Edit Profile</ Link>
+            <Link to="/view" /* onClick={cProfile(user)} */>View Profile</Link>
+            <Link to="/ParticipantDashboard">View ParticipantDashboard</Link>
+            <Link to="/EmployerDashboard">View EmployerDashboard</Link>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={() => logOut()}>
-              Logout
-            </NavDropdown.Item>
+            <Link to="/TdaDashboard">View TdaDashboard</Link>
+            <NavDropdown.Divider />
           </NavDropdown>
-
-          {/* <Button variant="warning" onClick={<Profile/>}>
-            Profile
-          </Button> */}
-          {/* <Nav.Link href="#action2">{props.user.fname}</Nav.Link> */}
         </Nav>
-
-      {/*   <Form onSubmit={(e) => searchByEmail(e)}>
-        <Form.Label></Form.Label>
-        <Form.Control  type="email" name="email" placeholder="searchbyemail" />
-        <Button type="submit" >searchbyemail</Button>
-      </Form> */}
-
-    {/*   <Button variant="outline-success" type="submit" onClick={()=> {refreshList()}}>showAll</Button> */}
-
       </Navbar.Collapse>
+      <Button variant="outline-success" type="submit" onClick={() => logOut()}>Logout</Button>
     </Container>
     </Navbar>
    )

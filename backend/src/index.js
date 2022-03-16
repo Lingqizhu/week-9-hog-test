@@ -32,10 +32,11 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan("combined"));
 
-app.post("/register", async (req, res) => {
+/* app.post("/register", async (req, res) => {
   const newPassword = await bcrypt.hash(req.body.password, 10);
   const user = await User.create({
     email: req.body.email,
+    username: req.body.username,
     password: newPassword,
   });
   await user.save();
@@ -60,10 +61,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get('/userlist',function(req,res){
-  User.find().then((users) => res.send(users))
-});
-
 app.use(async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const user = await User.findOne({ token: authHeader });
@@ -73,15 +70,18 @@ app.use(async (req, res, next) => {
   } else {
     res.sendStatus(403);
   }
+}); */
+
+app.get('/userlist',function(req,res){
+  User.find().then((users) => res.send(users))
 });
 
-
 // defining CRUD operations
-app.get("/", async (req, res) => {
+app.get("/profiles", async (req, res) => {
   res.send(await Profile.find());
 });
 
-app.get("/:id", async (req, res) => {
+app.get("/profiles/:id", async (req, res) => {
   res.send(await Profile.findOne({ _id: ObjectId(req.params.id) }));
 });
 
