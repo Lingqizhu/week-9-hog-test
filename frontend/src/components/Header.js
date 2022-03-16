@@ -9,7 +9,7 @@ import {
   Button,
 } from "react-bootstrap";
 //import { useDispatch, useSelector } from "react-redux";
-//import {} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 //import { logout } from "../actions/userActions";
 
 function Header() {
@@ -23,7 +23,7 @@ function Header() {
   };
 
   useEffect(() => {}, [userInfo]); */
-
+const navigate=useNavigate();
   return (
     <Container>
       <Navbar bg="light" expand="lg">
@@ -40,8 +40,11 @@ function Header() {
               <Nav.Link href="/myprofile">My Profile</Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
+                <NavDropdown.Item onClick={()=>{
+                  localStorage.removeItem("userInfo");
+                  navigate("/");
+                }}>
+                  Logout
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">

@@ -32,7 +32,7 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan("combined"));
 
-/* app.post("/register", async (req, res) => {
+app.post("/register", async (req, res) => {
   const newPassword = await bcrypt.hash(req.body.password, 10);
   const user = await User.create({
     email: req.body.email,
@@ -55,13 +55,13 @@ app.post("/login", async (req, res) => {
   if (isPasswordValid) {
     user.token = uuidv4();
     await user.save();
-    res.send({ token: user.token, role: user.role });
+    res.send({ token: user.token, role: user.role, _id: user._id, email: user.email, username: user.username,});
   } else {
     return res.sendStatus(404);
   }
 });
 
-app.use(async (req, res, next) => {
+/* app.use(async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const user = await User.findOne({ token: authHeader });
 

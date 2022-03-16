@@ -5,7 +5,7 @@ import { Button, Container, Row } from "react-bootstrap";
 import "./LandingStyles.css";
 
 function LandingPage() {
- /*  const userLogin = useSelector((state) => state.userLogin);
+  /* const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
@@ -23,12 +23,12 @@ function LandingPage() {
               <h1 className="title">Welcome to My Jobsite</h1>
             </div>
             <div className="buttonContainer">
-              <a href="/#">
+              <a href="/login">
                 <Button size="lg" className="landingbutton">
                   Login
                 </Button>
               </a>
-              <a href="/#">
+              <a href="/register">
                 <Button
                   variant="outline-primary"
                   size="lg"

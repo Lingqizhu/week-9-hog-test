@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     type: String,
     default:"participant"},
   username: String,
+   token: String
 },
 {
   timestamps:true,
