@@ -2,15 +2,18 @@ import {
   PROFILES_LIST,
   PROFILE_CREATE,
   PROFILE_UPDATE,
-  PROFILE_DELETE } from '../constants/actionTypes';
+  PROFILE_DELETE } from '../constants/profilesConstants';
+  import axios from "axios";
 
 
-export const getProfiles = () => async (dispatch) => {
+export const getProfiles = () => async (dispatch,getState) => {
   try {
+
+    const {userLogin:{userInfo}}=getState();
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `${userInfo.token}`
       },
     };
     const { data } = await axios.get(

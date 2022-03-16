@@ -2,6 +2,7 @@ import React, { Profiler, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
+import {getProfiles} from "../actions/profilesActions";
 import axios from "axios";
 
 import { useDispatch,useSelector } from "react-redux";
@@ -9,7 +10,13 @@ import { useDispatch,useSelector } from "react-redux";
 export default function MyProfile() {
 
   const dispatch = useDispatch();
-  const [profiles, setProfiles] = useState([]);
+
+  const profilesList = useSelector((state) => state.profilesList);
+  const { profiles } = profilesList;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+ // const [profiles, setProfiles] = useState([]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
@@ -17,17 +24,13 @@ export default function MyProfile() {
     }
   };
 
-  const getProfiles = async () => {
-    const { data } = await axios.get("http://localhost:3001/profiles");
-    setProfiles(data);
-  };
-
   useEffect(() => {
-    getProfiles();
+    dispatch(getProfiles());
   }, []);
 
+  console.log(profilesList)
   const buildcard=()=>{
-    return profiles.map((profile)=>{
+    return profilesList.map((profile)=>{
       return(
       <Accordion key={profile._id}>
       <Card style={{ margin: 10 }}>
