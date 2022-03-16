@@ -1,38 +1,42 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Form, Container, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 //import "./Login.css";
 //import AuthContext from './AuthProvider'
+import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
+import { login } from "../actions/userActions";
+import MainScreen from "../components/MainScreen";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  /* const location = useLocation();
+  const from = location.state?.from?.pathname || "/"; */
 
   //const [token, changeToken] = useState(window.localStorage.getItem("token"));
+  const dispatch = useDispatch();
+
+  //const userLogin = useSelector((state) => state.userLogin);
+ /*  const { userInfo } = userLogin; */
 
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const { data } = await axios.post("http://localhost:3001/login", {
-      email,
-      password,
-    });
-    console.log(data);
-    window.localStorage.setItem("userInfo", JSON.stringify(data));
 
-  }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(login(email, password));
+  };
 
   return (
     <div className="loginbackground">
       <Container>
         <br />
         <h1>Login</h1>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
