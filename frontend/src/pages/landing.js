@@ -1,10 +1,31 @@
-//import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, Container, Row } from "react-bootstrap";
-//import { useSelector } from "react-redux";
 //import { Link } from "react-router-dom";
 import "./LandingStyles.css";
+import { useDispatch,useSelector } from "react-redux";
+import {getProfiles} from "../actions/profilesActions";
 
-function LandingPage() {
+function LandingPage(history) {
+  const dispatch = useDispatch();
+
+
+  const profilesList = useSelector((state) => state.profilesList);
+  const { profiles } = profilesList;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    dispatch(getProfiles());
+    if (!userInfo) {
+      history.push("/");
+    }
+  }, [
+    dispatch,
+    history,
+    userInfo
+  ]);
+
   /* const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 

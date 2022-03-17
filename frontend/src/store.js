@@ -1,44 +1,28 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-
-/* import {
-  profileCreateReducer,
-  profileDeleteReducer,
-  profileListReducer,
-  profileUpdateReducer,
-} from "./reducers/profilesReducers"; */
-
-import {
-  userLoginReducer,
-  //userRegisterReducer,
-} from "./reducers/userReducers";
+import {profilesReducer} from "./reducers/profilesReducers";
+import {userLoginReducer} from "./reducers/userReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
- // userRegister: userRegisterReducer,
-
-  /* profileList: profileListReducer,
-  profileCreate: profileCreateReducer,
-  profileDelete: profileDeleteReducer,
-  profileUpdate: profileUpdateReducer, */
+  profilesList:profilesReducer
 });
 
-/* const userInfoFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+const userInfoFromStorage = localStorage.getItem("userLogin")
+  ? JSON.parse(localStorage.getItem("userLogin"))
   : null;
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
-}; */
+};
 
-const initialState={};
 const middleware = [thunk];
 
 const store = createStore(
   reducer,
   initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export default store;

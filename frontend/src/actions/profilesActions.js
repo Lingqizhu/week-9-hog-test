@@ -5,6 +5,7 @@ import {
   PROFILE_DELETE } from '../constants/profilesConstants';
   import axios from "axios";
 
+  const url = "http://localhost:3001/";
 
 export const getProfiles = () => async (dispatch,getState) => {
   try {
@@ -15,7 +16,7 @@ export const getProfiles = () => async (dispatch,getState) => {
       },
     };
     const { data } = await axios.get(
-      "http://localhost:3001/profiles",
+      `${url}profiles`,
       config
     );
     dispatch({ type: PROFILES_LIST, payload: data });
@@ -24,18 +25,18 @@ export const getProfiles = () => async (dispatch,getState) => {
   }
 };
 
-export const createProfile = (profile) => async (dispatch,getState) => {
+export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) => async (dispatch,getState) => {
   try {
     const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
-        "Content-type":"application/json",
-        Authorization: `${userInfo.token}`,
+        "Content-Type":"application/json",
+        authorization: `${userInfo.token}`,
       },
     };
     const { data } = await axios.post(
-      "http://localhost:3001/profile",
-      config
+      `${url}profiles`,
+       config
     );
     dispatch({ type: PROFILE_CREATE, payload: data });
   } catch (error) {
@@ -43,20 +44,19 @@ export const createProfile = (profile) => async (dispatch,getState) => {
   }
 };
 
-export const updateProfile = (id, profile) => async (dispatch,getState) => {
+export const updateProfile = (id, fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) => async (dispatch,getState) => {
   try {
     const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
         "Content-type":"application/json",
-        Authorization: `${userInfo.token}`,
+        authorization: `${userInfo.token}`,
       },
     };
     const { data } = await axios.put(
-      "http://localhost:3001/update",
+      `${url}update/${id}`,
       {
-        id,
-        profile,
+        fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture
       },
       config
     );
@@ -66,21 +66,30 @@ export const updateProfile = (id, profile) => async (dispatch,getState) => {
   }
 };
 
-/* export const likePost = (id) => async (dispatch) => {
+export const deleteProfile = (id) => async (dispatch,getState) => {
   try {
-    const { data } = await api.likePost(id);
+    const {userLogin:{userInfo}}=getState();
+    const config = {
+      headers: {
+        Authorization: `${userInfo.token}`
+      },
+    };
+    const { data } = await axios.delete(
+      `${url}delete/${id}`,
+      config
+    );
 
-    dispatch({ type: LIKE, payload: data });
+    dispatch({ type: PROFILE_DELETE, payload: id });
   } catch (error) {
     console.log(error.message);
   }
 };
-
-export const deletePost = (id) => async (dispatch) => {
+/*
+export const likePost = (id) => async (dispatch) => {
   try {
-    await api.deletePost(id);
+    const { data } = await api.likePost(id);
 
-    dispatch({ type: DELETE, payload: id });
+    dispatch({ type: LIKE, payload: data });
   } catch (error) {
     console.log(error.message);
   }

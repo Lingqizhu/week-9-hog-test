@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 
-import {profilesReducer} from "./profilesReducers";
+import {profilesReducer,profileCreateReducer} from "./profilesReducers";
 
 import {userLoginReducer} from "./userReducers";
 
 const Reducer = combineReducers({
   userLogin: userLoginReducer,
  profilesList:profilesReducer,
-
+ //profileCreat:profileCreateReducer
 });
 
 /* const userInfoFromStorage = localStorage.getItem("userInfo")

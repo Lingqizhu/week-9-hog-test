@@ -11,6 +11,7 @@ import {
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants";
 import axios from "axios";
+const url = "http://localhost:3001/";
 
 export const login = (email, password) => async (dispatch) => {
 
@@ -20,7 +21,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "http://localhost:3001/login",
+      `${url}login`,
       {
         email,
         password,

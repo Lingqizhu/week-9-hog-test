@@ -1,51 +1,64 @@
 
-import { useState } from "react";
+import React,{ useState,useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import {BsGithub,BsLinkedin} from "react-icons/bs";
 import "../style.css";
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import {createProfile,updateProfile} from '../actions/profilesActions'
+import MainScreen from "../components/MainScreen";
 
-export default function CreateProfile({currentId,setCurrentId}) {
+export default function CreateProfile() {
 
-  const [profile,setProfile]=useState({});
+  const [fname,setfname]=useState("")
+  const [sname,setsname]=useState("")
+  const [email,setemail]=useState("")
+  const [bio,setbio]=useState("")
+  const [cv,setcv]=useState("")
+  const [github,setgithub]=useState("")
+  const [linkedin,setlinkedin]=useState("")
+  const [portfolio,setportfolio]=useState("")
+  const [location,setlocation]=useState("")
+  const [picture,setpicture]=useState("")
+  //const [skills,setskills]=useState([])
+  const [available,setavailable]=useState(false)
+
 
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const newprofile = useSelector((state) =>
-   (currentId ? state.profilesList.find((message) => message._id === currentId) : null));
+  const profilesList = useSelector((state) => state.profilesList);
+  const { profiles } = profilesList;
 
-  //const { profiles } = profilesList;
 
-  useEffect(()=>{
-    if(newprofile){
-      setProfile(newprofile)
+  /* const profile = useSelector((state) =>
+   (currentId ? state.profilesList.find((message) => message._id === currentId) : null)); */
+
+  //const profileCreate = useSelector((state) => state.profileCreate)
+  //const{profile}=profileCreate
+
+  /* useEffect(()=>{
+    if(profile){
+      setData(profile)
     }
-  },[newprofile]);
+  },[profile]); */
 
-  const clear = () => {
-    setCurrentId(0);
-    setProfile({});
+  const resetHandler = () => {
+    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable("");setlocation("");setpicture("");
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (currentId === 0) {
-      dispatch(createProfile(profile));
-      clear();
-    } else {
-      dispatch(updateProfile(currentId, profile));
-      clear();
-    }
+    //e.preventDefault();
+
+    dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
+    //resetHandler();
+
   };
 
   return (
-    <>
+    <MainScreen title="Create a profile">
       <div className="profile-container">
         <br />
         <Form onSubmit={handleSubmit} className="formProfile">
@@ -55,9 +68,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 <Form.Label>Firstname</Form.Label>
                 <Form.Control
                   name="fname"
-                  value={profile.fname}
+                  value={fname}
                   placeholder="Enter Firstname"
-                 onChange={(e)=>setProfile({...profile,fname:e.target.value})}
+                 onChange={(e)=>setfname(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -66,9 +79,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 <Form.Label>Surname</Form.Label>
                 <Form.Control
                    name="sname"
-                   value={profile.sname}
+                   value={sname}
                    placeholder="Enter Surtname"
-                  onChange={(e)=>setProfile({...profile,sname:e.target.value})}
+                  onChange={(e)=>setsname(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -79,9 +92,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                    name="email"
-                   value={profile.email}
+                   value={email}
                    placeholder="Enter Email"
-                  onChange={(e)=>setProfile({...profile,email:e.target.value})}
+                  onChange={(e)=>setemail(e.target.value)}
                 />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
@@ -93,9 +106,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 <Form.Label>Location</Form.Label>
                 <Form.Control
                   name="location"
-                  value={profile.location}
+                  value={location}
                   placeholder="Enter location"
-                 onChange={(e)=>setProfile({...profile,location:e.target.value})}
+                 onChange={(e)=>setlocation(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -107,9 +120,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
              as="textarea"
              rows={5}
              name="bio"
-             value={profile.bio}
+             value={bio}
             placeholder="Tell us about yourself."
-            onChange={(e)=>setProfile({...profile,bio:e.target.value})}
+            onChange={(e)=>setbio(e.target.value)}
             />
           </Form.Group>
           <Row>
@@ -118,9 +131,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 <Form.Label>Portfolio</Form.Label>
                 <Form.Control
                    name="portfolio"
-                   value={profile.portfolio}
+                   value={portfolio}
                    placeholder="Enter portfolio"
-                  onChange={(e)=>setProfile({...profile,portfolio:e.target.value})}
+                  onChange={(e)=>setportfolio(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -131,9 +144,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 </Form.Label>
                 <Form.Control
                   name="github"
-                  value={profile.github}
+                  value={github}
                   placeholder="Enter github"
-                 onChange={(e)=>setProfile({...profile,github:e.target.value})}
+                 onChange={(e)=>setgithub(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -144,9 +157,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 </Form.Label>
                 <Form.Control
                   name="linkedin"
-                  value={profile.linkedin}
+                  value={linkedin}
                   placeholder="Enter linkedin"
-                 onChange={(e)=>setProfile({...profile,linkedin:e.target.value})}
+                 onChange={(e)=>setlinkedin(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -155,9 +168,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
             <Form.Label>Profile Photo</Form.Label>
             <Form.Control
               name="picture"
-              value={profile.picture}
+              value={picture}
               placeholder="Enter picture"
-             onChange={(e)=>setProfile({...profile,picture:e.target.value})}
+             onChange={(e)=>setpicture(e.target.value)}
             />
           </Form.Group>
 
@@ -172,9 +185,9 @@ export default function CreateProfile({currentId,setCurrentId}) {
                 <Form.Label>or URL</Form.Label>
                 <Form.Control
                   name="cv"
-                  value={profile.cv}
+                  value={cv}
                   placeholder="cv"
-                 onChange={(e)=>setProfile({...profile,cv:e.target.value})}
+                 onChange={(e)=>setcv(e.target.value)}
                 ></Form.Control>
               </Col>
             </Row>
@@ -183,19 +196,19 @@ export default function CreateProfile({currentId,setCurrentId}) {
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
               name="available"
-              value={profile.available}
+              value={available}
               placeholder="Available For Work?"
-              onChange={(e)=>setProfile({...profile,available:e.target.value})}
+              onChange={(e)=>setavailable(e.target.value)}
             />
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
           </Button>
-          <Button variant="primary" onClick={clear}>
-            Clear
+          <Button variant="primary" onClick={resetHandler}>
+            Reset
           </Button>
         </Form>
       </div>
-    </>
+    </MainScreen>
   );
 }

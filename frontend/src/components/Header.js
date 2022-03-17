@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { logout } from "../actions/userActions";
 
-function Header() {
+function Header({setSearch}) {
   const dispatch = useDispatch();
 
   /* const userLogin = useSelector((state) => state.userLogin);
@@ -38,15 +38,15 @@ const navigate=useNavigate();
               navbarScroll
             >
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/myprofile">My Profile</Nav.Link>
+              <Nav.Link href="/tdaDashboard">TdaDashboard</Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
+                <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+                <NavDropdown.Item href="/createprofile">
+                  CreateProfile
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
+                <NavDropdown.Item onClick={logoutHandler}>
+                 Logout
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href="#" disabled>
@@ -59,6 +59,7 @@ const navigate=useNavigate();
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={(e)=>setSearch(e.target.value)}
               />
               <Button variant="outline-success">Search</Button>
             </Form>

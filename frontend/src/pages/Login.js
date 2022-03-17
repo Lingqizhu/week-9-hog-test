@@ -10,7 +10,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { login } from "../actions/userActions";
 import MainScreen from "../components/MainScreen";
 
-function Login() {
+function Login({history}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,14 +22,18 @@ function Login() {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
- // const { userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
-
+ useEffect(() => {
+  if (userInfo) {
+    history.push("/");
+  }
+}, [history, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    navigate("/myprofile");
+    navigate("/");
   };
 
   return (

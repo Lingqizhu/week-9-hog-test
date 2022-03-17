@@ -2,12 +2,12 @@ import React, { Profiler, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
-import {getProfiles} from "../actions/profilesActions";
+import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesActions";
 import axios from "axios";
 
 import { useDispatch,useSelector } from "react-redux";
 
-export default function MyProfile() {
+export default function TdaDashboard({history,search}) {
 
   const dispatch = useDispatch();
 
@@ -16,21 +16,29 @@ export default function MyProfile() {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  console.log(userLogin)
+  console.log(userInfo)
  // const [profiles, setProfiles] = useState([]);
 
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      console.log("hello")
-    }
-  };
 
-  useEffect(() => {
-    dispatch(getProfiles());
-  }, []);
+ useEffect(() => {
+  dispatch(getProfiles());
+  if (!userInfo) {
+    history.push("/");
+  }
+}, [
+  dispatch,
+  history,
+  userInfo
+]);
 
   console.log(profilesList)
+
   const buildcard=()=>{
-    return profilesList.map((profile)=>{
+    return profilesList
+    .reverse()
+    .filter((filteredprofile)=>filteredprofile.location.toLowerCase().includes(search.toLowerCase()))
+    .map((profile)=>{
       return(
       <Accordion key={profile._id}>
       <Card style={{ margin: 10 }}>
@@ -55,11 +63,11 @@ export default function MyProfile() {
           </span>
           <div>
             <Button
-              variant="success" href={`/profile/${profile._id}`}
+              variant="success" onClick={()=>dispatch(updateProfile(profile._id))}
             >
               Edit
             </Button>
-            <Button onClick={() => deleteHandler(profile._id)} >
+            <Button onClick={() => dispatch(deleteProfile(profile._id))} >
               Delete
             </Button>
           </div>
