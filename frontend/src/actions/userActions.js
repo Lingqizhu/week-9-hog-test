@@ -28,12 +28,12 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-    window.localStorage.setItem("userInfo", JSON.stringify(data));
+    window.localStorage.setItem("userLogin", JSON.stringify(data));
 
 };
 
 export const logout = () => async (dispatch) => {
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem("userLogin");
   dispatch({ type: USER_LOGOUT });
 };
 

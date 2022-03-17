@@ -8,9 +8,7 @@ import {
 
 export const getProfiles = () => async (dispatch,getState) => {
   try {
-
     const {userLogin:{userInfo}}=getState();
-
     const config = {
       headers: {
         Authorization: `${userInfo.token}`
@@ -26,29 +24,32 @@ export const getProfiles = () => async (dispatch,getState) => {
   }
 };
 
-/* export const createProfile = (profile) => async (dispatch) => {
+export const createProfile = (profile) => async (dispatch,getState) => {
   try {
+    const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
-        "Content-type": "application/json",
+        "Content-type":"application/json",
+        Authorization: `${userInfo.token}`,
       },
     };
     const { data } = await axios.post(
       "http://localhost:3001/profile",
       config
     );
-
     dispatch({ type: PROFILE_CREATE, payload: data });
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const updatePost = (id, profile) => async (dispatch) => {
+export const updateProfile = (id, profile) => async (dispatch,getState) => {
   try {
+    const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
-        "Content-type": "application/json",
+        "Content-type":"application/json",
+        Authorization: `${userInfo.token}`,
       },
     };
     const { data } = await axios.put(
@@ -65,7 +66,7 @@ export const updatePost = (id, profile) => async (dispatch) => {
   }
 };
 
-export const likePost = (id) => async (dispatch) => {
+/* export const likePost = (id) => async (dispatch) => {
   try {
     const { data } = await api.likePost(id);
 

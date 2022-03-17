@@ -17,22 +17,23 @@ import {
     PROFILE_DELETE
   } from "../constants/profilesConstants";
 
-  export const profilesReducer=(state = {profiles:[]}, action) => {
+  export const profilesReducer=(state = [], action) => {
     switch (action.type) {
       case PROFILES_LIST:
         return action.payload;
-      /* case LIKE:
-        return profiles.map((post) => (post._id === action.payload._id ? action.payload : post)); */
-      /* case PROFILE_CREATE:
-        return [...profiles, action.payload];
+    /*   case PROFILE_CREATE:
+          return [...state, action.payload];
       case PROFILE_UPDATE:
-        return profiles.map((profile) => (profile._id === action.payload._id ? action.payload : profile));
-      case PROFILE_DELETE:
-        return profiles.filter((profile) => profile._id !== action.payload); */
+        return state.map((profile) => (profile._id === action.payload._id ? action.payload : profile)); */
+      //case PROFILE_DELETE:
+       // return profiles.filter((profile) => profile._id !== action.payload);
+     /*  case LIKE:
+          return profiles.map((post) => (post._id === action.payload._id ? action.payload : post)); */
       default:
         return state;
     }
   };
+
 
   /* export const profileListReducer = (state = { profiles: [] }, action) => {
     switch (action.type) {

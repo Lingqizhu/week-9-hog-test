@@ -7,7 +7,7 @@ import MyProfile from "./pages/MyProfile";
 //import SingleProfile from "./pages/SingleProfile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-//import CreateProfile from "./pages/CreateProfile";
+import CreateProfile from "./pages/CreateProfile";
 //import Profiles from "./pages/Profiles";
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
   <Route path = "/login"  element={<Login/>} />
   <Route path = "/register"  element={<Register/>} />
   <Route path = "/myprofile"  element={<MyProfile/>} />
+  <Route path = "/createprofile"  element={<CreateProfile/>} />
 </Routes>
 </Router>
 

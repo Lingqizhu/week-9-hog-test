@@ -45,7 +45,13 @@ export default function MyProfile() {
               fontSize: 18,
             }}
           >
-            <Accordion.Header>{profile.bio}</Accordion.Header>
+            <Accordion.Header>
+            <img src={profile.picture}/>
+              {profile.fname}{profile.sname}
+              <br/>
+              <br/>
+              {profile.location}
+              </Accordion.Header>
           </span>
           <div>
             <Button
@@ -53,7 +59,7 @@ export default function MyProfile() {
             >
               Edit
             </Button>
-            <Button Click={() => deleteHandler(profile._id)} >
+            <Button onClick={() => deleteHandler(profile._id)} >
               Delete
             </Button>
           </div>
@@ -63,10 +69,11 @@ export default function MyProfile() {
             <Badge varian="success">{profile.avaiable}</Badge>
             <blockquote className="blockquote mb-0">
               <p> {profile.skills}</p>
+              <p> {profile.bio}</p>
               <br />
               <footer className="blockquote-footer">
-               Update date
-                <cite title="Source Title">{profile.updatedAt}</cite>
+               Update date:
+                <cite title="Source Title">{profile.updatedAt.substring(0,10)}</cite>
               </footer>
             </blockquote>
           </Card.Body>
@@ -78,7 +85,7 @@ export default function MyProfile() {
   }
   return (
     <>
-      <MainScreen title="welcome back">
+      <MainScreen title={`welcome back ${userInfo.username}`}>
         <Link to="createprofile">
           <Button>Create your profile</Button>
         </Link>
