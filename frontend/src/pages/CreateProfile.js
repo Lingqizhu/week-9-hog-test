@@ -51,7 +51,6 @@ export default function CreateProfile() {
 
   const handleSubmit = async (e) => {
     //e.preventDefault();
-
     dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
     //resetHandler();
 

@@ -1,14 +1,9 @@
-import { useRef, useState, useEffect, useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect} from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Container, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-//import "./Login.css";
-//import AuthContext from './AuthProvider'
-import Loading from "../components/Loading";
-import ErrorMessage from "../components/ErrorMessage";
 import { login } from "../actions/userActions";
-import MainScreen from "../components/MainScreen";
+
 
 function Login({history}) {
   const [email, setEmail] = useState("");
@@ -17,8 +12,6 @@ function Login({history}) {
   const navigate = useNavigate();
   /* const location = useLocation();
   const from = location.state?.from?.pathname || "/"; */
-
-  //const [token, changeToken] = useState(window.localStorage.getItem("token"));
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -33,7 +26,7 @@ function Login({history}) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    navigate("/");
+    navigate("/landingpage");
   };
 
   return (

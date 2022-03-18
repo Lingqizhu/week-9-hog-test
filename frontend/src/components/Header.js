@@ -15,15 +15,11 @@ import { logout } from "../actions/userActions";
 function Header({setSearch}) {
   const dispatch = useDispatch();
 
-  /* const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin; */
-
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/");
   };
 
- // useEffect(() => {}, [userInfo]);
 const navigate=useNavigate();
   return (
     <Container>

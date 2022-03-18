@@ -1,9 +1,8 @@
-import React, { Profiler, useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
 import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesActions";
-import axios from "axios";
 
 import { useDispatch,useSelector } from "react-redux";
 
@@ -18,8 +17,6 @@ export default function TdaDashboard({history,search}) {
   const { userInfo } = userLogin;
   console.log(userLogin)
   console.log(userInfo)
- // const [profiles, setProfiles] = useState([]);
-
 
  useEffect(() => {
   dispatch(getProfiles());

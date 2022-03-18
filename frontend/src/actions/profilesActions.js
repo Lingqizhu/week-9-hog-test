@@ -4,12 +4,12 @@ import {
   PROFILE_UPDATE,
   PROFILE_DELETE } from '../constants/profilesConstants';
   import axios from "axios";
-
+  //import { useSelector } from "react-redux";
   const url = "http://localhost:3001/";
 
 export const getProfiles = () => async (dispatch,getState) => {
-  try {
-    const {userLogin:{userInfo}}=getState();
+
+  const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
         Authorization: `${userInfo.token}`
@@ -20,13 +20,12 @@ export const getProfiles = () => async (dispatch,getState) => {
       config
     );
     dispatch({ type: PROFILES_LIST, payload: data });
-  } catch (error) {
-    console.log(error.message);
-  }
+
+
 };
 
 export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) => async (dispatch,getState) => {
-  try {
+
     const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
@@ -39,13 +38,11 @@ export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio
        config
     );
     dispatch({ type: PROFILE_CREATE, payload: data });
-  } catch (error) {
-    console.log(error.message);
-  }
+
 };
 
 export const updateProfile = (id, fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) => async (dispatch,getState) => {
-  try {
+
     const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
@@ -61,13 +58,11 @@ export const updateProfile = (id, fname,sname,email,bio,cv,github,linkedin,portf
       config
     );
     dispatch({ type: PROFILE_UPDATE, payload: data });
-  } catch (error) {
-    console.log(error.message);
-  }
+
 };
 
 export const deleteProfile = (id) => async (dispatch,getState) => {
-  try {
+
     const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {
@@ -80,17 +75,5 @@ export const deleteProfile = (id) => async (dispatch,getState) => {
     );
 
     dispatch({ type: PROFILE_DELETE, payload: id });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-/*
-export const likePost = (id) => async (dispatch) => {
-  try {
-    const { data } = await api.likePost(id);
 
-    dispatch({ type: LIKE, payload: data });
-  } catch (error) {
-    console.log(error.message);
-  }
-}; */
+};
