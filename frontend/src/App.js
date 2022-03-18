@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import LandingPage from "./pages/landing";
 import { Container } from "react-bootstrap";
 import TdaDashboard from "./pages/tdaDashboard";
-//import SingleProfile from "./pages/SingleProfile";
+import EmployerDashboard from "./pages/employerDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateProfile from "./pages/CreateProfile";
@@ -25,15 +25,19 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route
-            element={<RequireAuth allowedRoles={["participant", "tda"]} />}>
+            element={<RequireAuth allowedRoles={["tda"]} />}>
             <Route path="/tdaDashboard" element={<TdaDashboard search={search} />}/>
+          </Route>
+          <Route
+            element={<RequireAuth allowedRoles={["tda","employer"]} />}>
+            <Route path="/employerDashboard" element={<EmployerDashboard search={search} />}/>
           </Route>
           <Route
             element={<RequireAuth allowedRoles={["participant", "tda"]} />} >
             <Route path="/createprofile" element={<CreateProfile />} />
           </Route>
           <Route
-            element={<RequireAuth allowedRoles={["participant", "tda"]} />} >
+            element={<RequireAuth allowedRoles={["participant", "tda","employer"]} />} >
             <Route path="/profile/:id" element={<Profile />} />
           </Route>
         </Route>

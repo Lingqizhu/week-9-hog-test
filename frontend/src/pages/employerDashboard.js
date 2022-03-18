@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
 import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesActions";
-
 import { useDispatch,useSelector } from "react-redux";
 
-export default function TdaDashboard({history,search}) {
+export default function EmployerDashboard({history,search}) {
 
   const dispatch = useDispatch();
 
@@ -62,10 +61,13 @@ export default function TdaDashboard({history,search}) {
             <Button
               variant="success" onClick={()=>dispatch(updateProfile(profile._id))}
             >
-              Edit
+              Mark
             </Button>
-            <Button onClick={() => dispatch(deleteProfile(profile._id))} >
-              Delete
+            <br/>
+            <br/>
+            <Button >
+            <a href={'mailto:' + profile.email} target="_new">Contact</a>
+
             </Button>
           </div>
         </Card.Header>

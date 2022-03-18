@@ -33,12 +33,16 @@ const navigate=useNavigate();
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/landingpage">Home</Nav.Link>
               <Nav.Link href="/tdaDashboard">TdaDashboard</Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+                <NavDropdown.Item href="/register">Register</NavDropdown.Item>
                 <NavDropdown.Item href="/createprofile">
                   CreateProfile
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/employerDashboard">
+                employerDashboard
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logoutHandler}>

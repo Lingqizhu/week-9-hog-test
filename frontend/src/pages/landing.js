@@ -29,18 +29,18 @@ function LandingPage(history) {
               <h1 className="title">Welcome to My Jobsite</h1>
             </div>
             <div className="buttonContainer">
-              <a href="/login">
+              <a href="/createprofile">
                 <Button size="lg" className="landingbutton">
-                  Login
+                I am a participant
                 </Button>
               </a>
-              <a href="/register">
+              <a href="/employerDashboard">
                 <Button
                   variant="outline-primary"
                   size="lg"
                   className="landingbutton"
                 >
-                  Signup
+                  I am an employer
                 </Button>
               </a>
             </div>
