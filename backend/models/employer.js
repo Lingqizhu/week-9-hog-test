@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const employerSchema = mongoose.Schema({
-  company: String,
+  name: String,
   industry: String,
   bio: String,
   linkedin: String,
@@ -10,10 +10,10 @@ const employerSchema = mongoose.Schema({
   location: String,
   picture: String,
   course: String,
-  // skills: Array
+
 })
 
-module.exports.Employer = mongoose.model('Employer', employerSchema, 'User')
+module.exports.Employer = mongoose.model('Employer', employerSchema)
 
 // var users = mongoose.model('User', loginUserSchema, 'users');
 // var registerUser = mongoose.model('Registered', registerUserSchema, 'users');

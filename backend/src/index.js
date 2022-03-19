@@ -11,6 +11,7 @@ const bcrypt = require("bcryptjs");
 //const {canViewData} = require("./project")
 const { User } = require("../models/user");
 const { Profile } = require("../models/profile");
+const { Employer } = require("../models/employer");
 
 
 mongoose.connect(
@@ -75,6 +76,11 @@ app.use(async (req, res, next) => {
 app.get('/userlist',function(req,res){
   User.find().then((users) => res.send(users))
 });
+
+app.get("/employers", async (req, res) => {
+  res.send(await Employer.find());
+});
+
 
 // defining CRUD operations
 app.get("/profiles", async (req, res) => {

@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
@@ -6,7 +6,7 @@ import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesAction
 import { useDispatch,useSelector } from "react-redux";
 
 export default function EmployerDashboard({history,search}) {
-
+  const [mark, setMark] = useState("Mark")
   const dispatch = useDispatch();
 
   const profilesList = useSelector((state) => state.profilesList);
@@ -28,11 +28,17 @@ export default function EmployerDashboard({history,search}) {
   userInfo
 ]);
 
+const handClick=(_id)=>{
+
+  /* e.target.style.color = 'red' */
+  setMark(_id)
+ }
+
   console.log(profilesList)
 
   const buildcard=()=>{
     return profilesList
-    .reverse()
+    /* .reverse() */
     .filter((filteredprofile)=>filteredprofile.location.toLowerCase().includes(search.toLowerCase()))
     .map((profile)=>{
       return(
@@ -59,9 +65,10 @@ export default function EmployerDashboard({history,search}) {
           </span>
           <div>
             <Button
-              variant="success" onClick={()=>dispatch(updateProfile(profile._id))}
+              variant="success"  onClick={()=>handClick(profile._id)}
             >
-              Mark
+            {mark==profile._id ? "Marked": "Mark"}
+             {/*  Mark */}
             </Button>
             <br/>
             <br/>
