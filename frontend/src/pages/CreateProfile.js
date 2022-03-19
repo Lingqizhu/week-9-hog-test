@@ -1,4 +1,3 @@
-
 import React,{ useState,useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { Form, Button, Col, Row } from "react-bootstrap";
@@ -8,13 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import {createProfile,updateProfile} from '../actions/profilesActions'
 import MainScreen from "../components/MainScreen";
 import {getProfiles} from "../actions/profilesActions";
-import FileBase from 'react-file-base64';
 
 export default function CreateProfile() {
 
-  const [profileData,setProfileData]=useState({fname:'',sname:'',email:'',bio:'',cv:'',github:'',linkedin:'',portfolio:'',available:'',location:'',picture:''});
-
-  /* const [fname,setfname]=useState("")
+  const [fname,setfname]=useState("")
   const [sname,setsname]=useState("")
   const [email,setemail]=useState("")
   const [bio,setbio]=useState("")
@@ -25,7 +21,7 @@ export default function CreateProfile() {
   const [location,setlocation]=useState("")
   const [picture,setpicture]=useState("")
   //const [skills,setskills]=useState([])
-  const [available,setavailable]=useState(false) */
+  const [available,setavailable]=useState(false)
 
 
   const dispatch = useDispatch();
@@ -35,7 +31,6 @@ export default function CreateProfile() {
 
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
-
 
 
   /* const profile = useSelector((state) =>
@@ -50,20 +45,20 @@ export default function CreateProfile() {
     }
   },[profile]); */
 
-  /* useEffect(() => {
-    if(profile) setProfileData(profile);
-
+  useEffect(() => {
+    dispatch(getProfiles());
   }, [
     dispatch,
-  ]); */
+    userInfo
+  ]);
 
   const resetHandler = () => {
-    setProfileData({fname:'',sname:'',email:'',bio:'',cv:'',github:'',linkedin:'',portfolio:'',available:'',location:'',picture:''});
+    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable("");setlocation("");setpicture("");
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(createProfile(profileData));
+    //e.preventDefault();
+    dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
     //resetHandler();
 
   };
@@ -79,9 +74,9 @@ export default function CreateProfile() {
                 <Form.Label>Firstname</Form.Label>
                 <Form.Control
                   name="fname"
-                  value={profileData.fname}
+                  value={fname}
                   placeholder="Enter Firstname"
-                 onChange={(e)=>setProfileData({...profileData, fname:e.target.value})}
+                 onChange={(e)=>setfname(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -90,9 +85,9 @@ export default function CreateProfile() {
                 <Form.Label>Surname</Form.Label>
                 <Form.Control
                    name="sname"
-                   value={profileData.sname}
+                   value={sname}
                    placeholder="Enter Surtname"
-                  onChange={(e)=>setProfileData({...profileData, sname:e.target.value})}
+                  onChange={(e)=>setsname(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -103,9 +98,9 @@ export default function CreateProfile() {
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                    name="email"
-                   value={profileData.email}
+                   value={email}
                    placeholder="Enter Email"
-                  onChange={(e)=>setProfileData({...profileData, email:e.target.value})}
+                  onChange={(e)=>setemail(e.target.value)}
                 />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
@@ -117,9 +112,9 @@ export default function CreateProfile() {
                 <Form.Label>Location</Form.Label>
                 <Form.Control
                   name="location"
-                  value={profileData.location}
+                  value={location}
                   placeholder="Enter location"
-                 onChange={(e)=>setProfileData({...profileData, location:e.target.value})}
+                 onChange={(e)=>setlocation(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -131,9 +126,9 @@ export default function CreateProfile() {
              as="textarea"
              rows={5}
              name="bio"
-             value={profileData.bio}
+             value={bio}
             placeholder="Tell us about yourself."
-            onChange={(e)=>setProfileData({...profileData, bio:e.target.value})}
+            onChange={(e)=>setbio(e.target.value)}
             />
           </Form.Group>
           <Row>
@@ -142,9 +137,9 @@ export default function CreateProfile() {
                 <Form.Label>Portfolio</Form.Label>
                 <Form.Control
                    name="portfolio"
-                   value={profileData.portfolio}
+                   value={portfolio}
                    placeholder="Enter portfolio"
-                  onChange={(e)=>setProfileData({...profileData, portfolio:e.target.value})}
+                  onChange={(e)=>setportfolio(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -155,9 +150,9 @@ export default function CreateProfile() {
                 </Form.Label>
                 <Form.Control
                   name="github"
-                  value={profileData.github}
+                  value={github}
                   placeholder="Enter github"
-                 onChange={(e)=>setProfileData({...profileData, github:e.target.value})}
+                 onChange={(e)=>setgithub(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -168,9 +163,9 @@ export default function CreateProfile() {
                 </Form.Label>
                 <Form.Control
                   name="linkedin"
-                  value={profileData.linkedin}
+                  value={linkedin}
                   placeholder="Enter linkedin"
-                 onChange={(e)=>setProfileData({...profileData, linkedin:e.target.value})}
+                 onChange={(e)=>setlinkedin(e.target.value)}
                 />
               </Form.Group>
             </Col>
@@ -179,9 +174,9 @@ export default function CreateProfile() {
             <Form.Label>Profile Photo</Form.Label>
             <Form.Control
               name="picture"
-              value={profileData.picture}
+              value={picture}
               placeholder="Enter picture"
-             onChange={(e)=>setProfileData({...profileData, picture:e.target.value})}
+             onChange={(e)=>setpicture(e.target.value)}
             />
           </Form.Group>
 
@@ -196,9 +191,9 @@ export default function CreateProfile() {
                 <Form.Label>or URL</Form.Label>
                 <Form.Control
                   name="cv"
-                  value={profileData.cv}
+                  value={cv}
                   placeholder="cv"
-                 onChange={(e)=>setProfileData({...profileData, cv:e.target.value})}
+                 onChange={(e)=>setcv(e.target.value)}
                 ></Form.Control>
               </Col>
             </Row>
@@ -207,14 +202,11 @@ export default function CreateProfile() {
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
               name="available"
-              value={profileData.available}
+              value={available}
               placeholder="Available For Work?"
-              onChange={(e)=>setProfileData({...profileData, available:e.target.value})}
+              onChange={(e)=>setavailable(e.target.value)}
             />
           </Form.Group>
-
-          <div><FileBase type="file" multiple={false} onDone={({ base64 }) => setProfileData({ ...profileData, selectedFile: base64 })} /></div>
-
           <Button variant="primary" type="submit">
             Submit
           </Button>
@@ -226,3 +218,4 @@ export default function CreateProfile() {
     </MainScreen>
   );
 }
+

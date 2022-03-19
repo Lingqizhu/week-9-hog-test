@@ -24,7 +24,7 @@ export const getProfiles = () => async (dispatch,getState) => {
 
 };
 
-export const createProfile = (profile) => async (dispatch,getState) => {
+export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) => async (dispatch,getState) => {
 
     const {userLogin:{userInfo}}=getState();
     const config = {
@@ -35,7 +35,7 @@ export const createProfile = (profile) => async (dispatch,getState) => {
     };
     const { data } = await axios.post(
       `${url}profile`,
-      {profile},
+      {fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture},
        config
     );
     dispatch({ type: PROFILE_CREATE, payload: data });

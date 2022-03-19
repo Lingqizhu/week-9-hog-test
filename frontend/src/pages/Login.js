@@ -19,7 +19,7 @@ function Login({history}) {
 
  useEffect(() => {
   if (userInfo) {
-    history.push("/");
+    navigate("/register")
   }
 }, [history, userInfo]);
 
