@@ -138,13 +138,13 @@ export default function CreateProfile(currentId) {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicBio">
+          <Form.Group className="mb-3" controlId="formBasicSkills">
             <Form.Label>Skills</Form.Label>
             <Form.Control
              name="skills"
              value={skills}
-            placeholder="Enter your skills"
-            onChange={(e)=>setskills(e.target.value)}
+            placeholder="Enter your skills, use comma between skills"
+            onChange={(e)=>setskills((e.target.value).split(','))}
             /* onAdd={(chip) => handleAddChip(chip)}
             onDelete={(chip) => handleDeleteChip(chip)} */
             />
