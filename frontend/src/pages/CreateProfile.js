@@ -1,9 +1,9 @@
 import React,{ useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import {BsGithub,BsLinkedin} from "react-icons/bs";
 import "../style.css";
-import { useNavigate } from 'react-router-dom';
 import {getProfiles,createProfile,updateProfile} from '../actions/profilesActions'
 import MainScreen from "../components/MainScreen";
 
@@ -21,24 +21,27 @@ export default function CreateProfile(currentId) {
   const [picture,setpicture]=useState("")
   //const [skills,setskills]=useState([])
   const [available,setavailable]=useState(false)
-  const dispatch = useDispatch();
   const navigate=useNavigate();
+  const dispatch = useDispatch();
 
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   console.log(userLogin)
+  console.log(userInfo)
   console.log(profilesList)
 
   const profile = useSelector((state) => currentId?state.profilesList.find((p)=>p._id === currentId.currentId):null);
   console.log(profile)
 
-
   useEffect(() => {
     if(profile){
-      setfname(profile.fname);setsname(profile.sname);setemail(profile.email);setbio(profile.bio);setcv(profile.cv);setgithub(profile.github);setlinkedin(profile.linkedin);setportfolio(profile.portfolio);setavailable(profile.available);setlocation(profile.location);setpicture(profile.picture);
-    }
+      setfname(profile.fname);setsname(profile.sname);setemail(profile.email);setbio(profile.bio);setcv(profile.cv);setgithub(profile.github);setlinkedin(profile.linkedin);setportfolio(profile.portfolio);setavailable(profile.available);setlocation(profile.location);setpicture(profile.picture);}
+      else{
+        dispatch(getProfiles());
+      }
   }, [
     profile
   ]);
@@ -50,7 +53,8 @@ export default function CreateProfile(currentId) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(currentId.currentId){
-      dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture))
+      dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
+      navigate('/tdaDashboard')
     }else{
       dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
     }
@@ -199,7 +203,7 @@ export default function CreateProfile(currentId) {
             <Form.Check
               name="available"
               value={available}
-              placeholder="Available For Work?"
+              label="Available For Work?"
               onChange={(e)=>setavailable(e.target.value)}
             />
           </Form.Group>
