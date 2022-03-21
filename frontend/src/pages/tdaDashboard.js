@@ -13,11 +13,10 @@ export default function TdaDashboard({search,setCurrentId}) {
 
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   console.log(userLogin)
-  console.log(userInfo)
+  console.log(profilesList)
 
  useEffect(() => {
   dispatch(getProfiles());
@@ -25,8 +24,6 @@ export default function TdaDashboard({search,setCurrentId}) {
   dispatch,
   userInfo
 ]);
-
-  console.log(profilesList)
 
   const buildcard=()=>{
     return profilesList

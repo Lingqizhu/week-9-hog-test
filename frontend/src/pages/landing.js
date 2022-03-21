@@ -11,8 +11,9 @@ function LandingPage(history) {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-
+  console.log(userLogin)
+  console.log(userInfo)
+  console.log(profilesList)
   useEffect(() => {
     dispatch(getProfiles());
   }, [

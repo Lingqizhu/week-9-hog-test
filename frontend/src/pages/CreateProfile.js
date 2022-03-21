@@ -22,18 +22,17 @@ export default function CreateProfile(currentId) {
   //const [skills,setskills]=useState([])
   const [available,setavailable]=useState(false)
   const dispatch = useDispatch();
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const navigate=useNavigate();
 
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  console.log(userLogin)
+  console.log(profilesList)
 
   const profile = useSelector((state) => currentId?state.profilesList.find((p)=>p._id === currentId.currentId):null);
-  console.log(currentId)
-  console.log(profilesList)
   console.log(profile)
-
 
 
   useEffect(() => {
@@ -50,8 +49,8 @@ export default function CreateProfile(currentId) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(currentId){
-      dispatch(updateProfile(currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture))
+    if(currentId.currentId){
+      dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture))
     }else{
       dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
     }
@@ -61,7 +60,7 @@ export default function CreateProfile(currentId) {
   };
 
   return (
-    <MainScreen title="Create a profile">
+    <MainScreen title={currentId.currentId? "Update profile": "Create a profile"}>
       <div className="profile-container">
         <br />
         <Form onSubmit={handleSubmit} className="formProfile">
