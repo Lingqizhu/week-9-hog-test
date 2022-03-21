@@ -18,7 +18,7 @@ function LandingPage(history) {
     dispatch(getProfiles());
   }, [
     dispatch,
-    history,
+
     userInfo
   ]);
 
@@ -31,12 +31,14 @@ function LandingPage(history) {
               <h1 className="title">Welcome to My Jobsite</h1>
             </div>
             <div className="buttonContainer">
-              <a href="/createprofile">
+
+              <a href={profilesList.map((p)=>p.email).includes(userInfo.email)?"/participantDashboard":"/createprofile"}>
                 <Button size="lg" className="landingbutton">
                 I am a participant
                 </Button>
               </a>
-              <a href="/employerDashboard">
+
+              <a href= "/employerDashboard">
                 <Button
                   variant="outline-primary"
                   size="lg"

@@ -5,6 +5,7 @@ import LandingPage from "./pages/landing";
 import { Container } from "react-bootstrap";
 import TdaDashboard from "./pages/tdaDashboard";
 import EmployerDashboard from "./pages/employerDashboard";
+import ParticipantDashboard from "./pages/participantDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateProfile from "./pages/CreateProfile";
@@ -32,6 +33,10 @@ function App() {
           <Route
             element={<RequireAuth allowedRoles={["tda","employer"]} />}>
             <Route path="/employerDashboard" element={<EmployerDashboard search={search}/>}/>
+          </Route>
+          <Route
+            element={<RequireAuth allowedRoles={["participant", "tda"]} />} >
+            <Route path="/participantDashboard" element={<ParticipantDashboard setCurrentId={setCurrentId}/>} />
           </Route>
           <Route
             element={<RequireAuth allowedRoles={["participant", "tda"]} />} >

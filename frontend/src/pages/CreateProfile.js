@@ -6,9 +6,10 @@ import {BsGithub,BsLinkedin} from "react-icons/bs";
 import "../style.css";
 import {getProfiles,createProfile,updateProfile} from '../actions/profilesActions'
 import MainScreen from "../components/MainScreen";
+import TdaDashboard from "./tdaDashboard";
 
 export default function CreateProfile(currentId) {
-
+console.log(currentId)
   const [fname,setfname]=useState("")
   const [sname,setsname]=useState("")
   const [email,setemail]=useState("")
@@ -54,12 +55,14 @@ export default function CreateProfile(currentId) {
     e.preventDefault();
     if(currentId.currentId){
       dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills));
-      navigate('/tdaDashboard')
+      userInfo.role==="tda"?navigate('/tdaDashboard'):navigate('/participantDashboard')
     }else{
       dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills));
+      navigate('/participantDashboard')
     }
     resetHandler();
   };
+
 
 /*   const handleAddChip = (skill) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
@@ -70,7 +73,9 @@ export default function CreateProfile(currentId) {
   }; */
 
   return (
+
     <MainScreen title={currentId.currentId? "Update profile": "Create a profile"}>
+
       <div className="profile-container">
         <br />
         <Form onSubmit={handleSubmit} className="formProfile">

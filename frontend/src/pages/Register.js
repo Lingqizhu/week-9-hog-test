@@ -23,7 +23,7 @@ function Register() {
         password
       }),
     });
-    navigate("/login")
+    navigate("/")
   }
 
 
