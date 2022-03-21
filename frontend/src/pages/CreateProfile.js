@@ -19,7 +19,7 @@ export default function CreateProfile(currentId) {
   const [portfolio,setportfolio]=useState("")
   const [location,setlocation]=useState("")
   const [picture,setpicture]=useState("")
-  //const [skills,setskills]=useState([])
+  const [skills,setskills]=useState([])
   const [available,setavailable]=useState(false)
   const navigate=useNavigate();
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ export default function CreateProfile(currentId) {
 
   useEffect(() => {
     if(profile){
-      setfname(profile.fname);setsname(profile.sname);setemail(profile.email);setbio(profile.bio);setcv(profile.cv);setgithub(profile.github);setlinkedin(profile.linkedin);setportfolio(profile.portfolio);setavailable(profile.available);setlocation(profile.location);setpicture(profile.picture);}
+      setfname(profile.fname);setsname(profile.sname);setemail(profile.email);setbio(profile.bio);setcv(profile.cv);setgithub(profile.github);setlinkedin(profile.linkedin);setportfolio(profile.portfolio);setavailable(profile.available);setlocation(profile.location);setpicture(profile.picture);setskills([profile.skills])}
       else{
         dispatch(getProfiles());
       }
@@ -47,21 +47,27 @@ export default function CreateProfile(currentId) {
   ]);
 
   const resetHandler = () => {
-    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable("");setlocation("");setpicture("");
+    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable("");setlocation("");setpicture("");setskills([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(currentId.currentId){
-      dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
+      dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills));
       navigate('/tdaDashboard')
     }else{
-      dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
+      dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills));
     }
-
-    //resetHandler();
-
+    resetHandler();
   };
+
+/*   const handleAddChip = (skill) => {
+    setPostData({ ...postData, tags: [...postData.tags, tag] });
+  };
+
+  const handleDeleteChip = (chipToDelete) => {
+    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+  }; */
 
   return (
     <MainScreen title={currentId.currentId? "Update profile": "Create a profile"}>
@@ -131,6 +137,19 @@ export default function CreateProfile(currentId) {
             onChange={(e)=>setbio(e.target.value)}
             />
           </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicBio">
+            <Form.Label>Skills</Form.Label>
+            <Form.Control
+             name="skills"
+             value={skills}
+            placeholder="Enter your skills"
+            onChange={(e)=>setskills(e.target.value)}
+            /* onAdd={(chip) => handleAddChip(chip)}
+            onDelete={(chip) => handleDeleteChip(chip)} */
+            />
+          </Form.Group>
+
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="formBasicPortfolio">

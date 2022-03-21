@@ -46,7 +46,7 @@ export default function TdaDashboard({search,setCurrentId}) {
           >
             <Accordion.Header>
             <img src={profile.picture}/>
-              {profile.fname}{profile.sname}
+              {profile.fname}{' '}{profile.sname}
               <br/>
               <br/>
               {profile.location}
@@ -70,7 +70,7 @@ export default function TdaDashboard({search,setCurrentId}) {
           <Card.Body>
             <Badge varian="success">{profile.avaiable}</Badge>
             <blockquote className="blockquote mb-0">
-              <p> {profile.skills}</p>
+              <p> Skills:{' '}{profile.skills.map((skill)=>`#${skill}`)}</p>
               <p> {profile.bio}</p>
               <br />
               <footer className="blockquote-footer">

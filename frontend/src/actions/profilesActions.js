@@ -24,7 +24,7 @@ export const getProfiles = () => async (dispatch,getState) => {
 
 };
 
-export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) => async (dispatch,getState) => {
+export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills) => async (dispatch,getState) => {
 
     const {userLogin:{userInfo}}=getState();
     const config = {
@@ -35,14 +35,14 @@ export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio
     };
     const { data } = await axios.post(
       `${url}profile`,
-      {fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture},
+      {fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills},
        config
     );
     dispatch({ type: PROFILE_CREATE, payload: data });
 
 };
 
-export const updateProfile = (id, fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture) => async (dispatch,getState) => {
+export const updateProfile = (id, fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills) => async (dispatch,getState) => {
 
     const {userLogin:{userInfo}}=getState();
     const config = {
@@ -54,7 +54,7 @@ export const updateProfile = (id, fname,sname,email,bio,cv,github,linkedin,portf
     const { data } = await axios.put(
       `${url}update/${id}`,
       {
-        fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture
+        fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills
       },
       config
     );
