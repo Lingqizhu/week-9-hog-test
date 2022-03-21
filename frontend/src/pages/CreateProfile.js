@@ -37,10 +37,11 @@ export default function CreateProfile(currentId) {
 
 
   useEffect(() => {
-    dispatch(updateProfile());
+    if(profile){
+      setfname(profile.fname);setsname(profile.sname);setemail(profile.email);setbio(profile.bio);setcv(profile.cv);setgithub(profile.github);setlinkedin(profile.linkedin);setportfolio(profile.portfolio);setavailable(profile.available);setlocation(profile.location);setpicture(profile.picture);
+    }
   }, [
-    dispatch,
-    userInfo
+    profile
   ]);
 
   const resetHandler = () => {
@@ -70,7 +71,7 @@ export default function CreateProfile(currentId) {
                 <Form.Label>Firstname</Form.Label>
                 <Form.Control
                   name="fname"
-                  value={profile.fname}
+                  value={fname}
                   placeholder="Enter Firstname"
                  onChange={(e)=>setfname(e.target.value)}
                 />
@@ -81,7 +82,7 @@ export default function CreateProfile(currentId) {
                 <Form.Label>Surname</Form.Label>
                 <Form.Control
                    name="sname"
-                   value={profile.sname}
+                   value={sname}
                    placeholder="Enter Surtname"
                   onChange={(e)=>setsname(e.target.value)}
                 />
@@ -94,7 +95,7 @@ export default function CreateProfile(currentId) {
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                    name="email"
-                   value={profile.email}
+                   value={email}
                    placeholder="Enter Email"
                   onChange={(e)=>setemail(e.target.value)}
                 />
@@ -108,7 +109,7 @@ export default function CreateProfile(currentId) {
                 <Form.Label>Location</Form.Label>
                 <Form.Control
                   name="location"
-                  value={profile.location}
+                  value={location}
                   placeholder="Enter location"
                  onChange={(e)=>setlocation(e.target.value)}
                 />
@@ -122,7 +123,7 @@ export default function CreateProfile(currentId) {
              as="textarea"
              rows={5}
              name="bio"
-             value={profile.bio}
+             value={bio}
             placeholder="Tell us about yourself."
             onChange={(e)=>setbio(e.target.value)}
             />
@@ -133,7 +134,7 @@ export default function CreateProfile(currentId) {
                 <Form.Label>Portfolio</Form.Label>
                 <Form.Control
                    name="portfolio"
-                   value={profile.portfolio}
+                   value={portfolio}
                    placeholder="Enter portfolio"
                   onChange={(e)=>setportfolio(e.target.value)}
                 />
@@ -146,7 +147,7 @@ export default function CreateProfile(currentId) {
                 </Form.Label>
                 <Form.Control
                   name="github"
-                  value={profile.github}
+                  value={github}
                   placeholder="Enter github"
                  onChange={(e)=>setgithub(e.target.value)}
                 />
@@ -159,7 +160,7 @@ export default function CreateProfile(currentId) {
                 </Form.Label>
                 <Form.Control
                   name="linkedin"
-                  value={profile.linkedin}
+                  value={linkedin}
                   placeholder="Enter linkedin"
                  onChange={(e)=>setlinkedin(e.target.value)}
                 />
@@ -170,7 +171,7 @@ export default function CreateProfile(currentId) {
             <Form.Label>Profile Photo</Form.Label>
             <Form.Control
               name="picture"
-              value={profile.picture}
+              value={picture}
               placeholder="Enter picture"
              onChange={(e)=>setpicture(e.target.value)}
             />
@@ -187,7 +188,7 @@ export default function CreateProfile(currentId) {
                 <Form.Label>or URL</Form.Label>
                 <Form.Control
                   name="cv"
-                  value={profile.cv}
+                  value={cv}
                   placeholder="cv"
                  onChange={(e)=>setcv(e.target.value)}
                 ></Form.Control>
@@ -198,7 +199,7 @@ export default function CreateProfile(currentId) {
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
               name="available"
-              value={profile.available}
+              value={available}
               placeholder="Available For Work?"
               onChange={(e)=>setavailable(e.target.value)}
             />
