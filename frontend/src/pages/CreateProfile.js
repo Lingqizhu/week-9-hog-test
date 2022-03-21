@@ -4,11 +4,10 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 import {BsGithub,BsLinkedin} from "react-icons/bs";
 import "../style.css";
 import { useNavigate } from 'react-router-dom';
-import {createProfile,updateProfile} from '../actions/profilesActions'
+import {getProfiles,createProfile,updateProfile} from '../actions/profilesActions'
 import MainScreen from "../components/MainScreen";
-import {getProfiles} from "../actions/profilesActions";
 
-export default function CreateProfile({currentId,setCurrentId}) {
+export default function CreateProfile(currentId) {
 
   const [fname,setfname]=useState("")
   const [sname,setsname]=useState("")
@@ -22,8 +21,6 @@ export default function CreateProfile({currentId,setCurrentId}) {
   const [picture,setpicture]=useState("")
   //const [skills,setskills]=useState([])
   const [available,setavailable]=useState(false)
-
-
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -32,22 +29,18 @@ export default function CreateProfile({currentId,setCurrentId}) {
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
 
-  const profile = useSelector((state) => currentId?state.profilesList.find((p)=>p._id === currentId):null);
- //const { profile} = profile;
-console.log(profile)
-  //const profileCreate = useSelector((state) => state.profileCreate)
-  //const{profile}=profileCreate
+  const profile = useSelector((state) => currentId?state.profilesList.find((p)=>p._id === currentId.currentId):null);
+  console.log(currentId)
+  console.log(profilesList)
+  console.log(profile)
 
-  /* useEffect(()=>{
-    if(profile){
-      setData(profile)
-    }
-  },[profile]); */
+
 
   useEffect(() => {
     dispatch(updateProfile());
   }, [
-    profile
+    dispatch,
+    userInfo
   ]);
 
   const resetHandler = () => {
@@ -67,7 +60,7 @@ console.log(profile)
   };
 
   return (
-    <MainScreen  title={currentId? "Update profile" :"Create a profile"}>
+    <MainScreen title="Create a profile">
       <div className="profile-container">
         <br />
         <Form onSubmit={handleSubmit} className="formProfile">
@@ -178,8 +171,7 @@ console.log(profile)
             <Form.Control
               name="picture"
               value={profile.picture}
-              type="link"
-              placeholder="Profile Photo"
+              placeholder="Enter picture"
              onChange={(e)=>setpicture(e.target.value)}
             />
           </Form.Group>
@@ -207,8 +199,7 @@ console.log(profile)
             <Form.Check
               name="available"
               value={profile.available}
-              type="checkbox"
-              label="Available For Work?"
+              placeholder="Available For Work?"
               onChange={(e)=>setavailable(e.target.value)}
             />
           </Form.Group>
@@ -223,4 +214,3 @@ console.log(profile)
     </MainScreen>
   );
 }
-

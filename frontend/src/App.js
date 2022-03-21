@@ -14,7 +14,8 @@ import RequireAuth from "./RequireAuth";
 
 function App() {
   const [search, setSearch] = useState("");
-  const [currentId, setCurrentId]=useState(null)
+  const [currentId,setCurrentId] = useState(null)
+
   return (
     <Router>
       <Header setSearch={setSearch} />
@@ -26,15 +27,15 @@ function App() {
 
           <Route
             element={<RequireAuth allowedRoles={["tda"]} />}>
-            <Route path="/tdaDashboard" element={<TdaDashboard search={search} setCurrentId={setCurrentId}/>}/>
+            <Route path="/tdaDashboard" element={<TdaDashboard search={search} setCurrentId={setCurrentId} />}/>
           </Route>
           <Route
             element={<RequireAuth allowedRoles={["tda","employer"]} />}>
-            <Route path="/employerDashboard" element={<EmployerDashboard search={search} />}/>
+            <Route path="/employerDashboard" element={<EmployerDashboard search={search}/>}/>
           </Route>
           <Route
             element={<RequireAuth allowedRoles={["participant", "tda"]} />} >
-            <Route path="/createprofile" element={<CreateProfile currentId={currentId}/>} />
+            <Route path="/createprofile" element={<CreateProfile currentId={currentId} setCurrentId={setCurrentId}/>} />
           </Route>
           <Route
             element={<RequireAuth allowedRoles={["participant", "tda","employer"]} />} >
