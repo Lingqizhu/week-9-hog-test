@@ -1,14 +1,15 @@
-import React, { useEffect} from "react";
+import React, { useEffect,useState} from "react";
+import { useNavigate} from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
 import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesActions";
-
 import { useDispatch,useSelector } from "react-redux";
 
-export default function TdaDashboard({history,search}) {
-
+export default function TdaDashboard({search,setCurrentId}) {
+  //const [profile,setProfile] = useState(undefined)
   const dispatch = useDispatch();
+  const navigate=useNavigate();
 
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
@@ -20,12 +21,8 @@ export default function TdaDashboard({history,search}) {
 
  useEffect(() => {
   dispatch(getProfiles());
-  if (!userInfo) {
-    history.push("/");
-  }
 }, [
   dispatch,
-  history,
   userInfo
 ]);
 
@@ -60,7 +57,10 @@ export default function TdaDashboard({history,search}) {
           </span>
           <div>
             <Button
-              variant="success" onClick={()=>dispatch(updateProfile(profile._id))}
+              variant="success" onClick={()=>{
+                setCurrentId(profile._id);
+                navigate("/createprofile")
+              }}
             >
               Edit
             </Button>
@@ -73,7 +73,7 @@ export default function TdaDashboard({history,search}) {
           <Card.Body>
             <Badge varian="success">{profile.avaiable}</Badge>
             <blockquote className="blockquote mb-0">
-              <p> {profile.skills}</p>
+              <p> Skills:{profile.skills.map((skill)=>` #${skill} `)}</p>
               <p> {profile.bio}</p>
               <br />
               <footer className="blockquote-footer">

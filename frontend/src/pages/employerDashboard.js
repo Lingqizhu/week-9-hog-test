@@ -6,6 +6,7 @@ import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesAction
 import { useDispatch,useSelector } from "react-redux";
 
 export default function EmployerDashboard({history,search}) {
+
   const [mark, setMark] = useState("Mark")
   const dispatch = useDispatch();
 
@@ -39,7 +40,7 @@ const handClick=(_id)=>{
   const buildcard=()=>{
     return profilesList
     /* .reverse() */
-    .filter((filteredprofile)=>filteredprofile.location.toLowerCase().includes(search.toLowerCase()))
+    .filter((filteredprofile)=>Object.value(filteredprofile).toLowerCase().includes(search.toLowerCase()))
     .map((profile)=>{
       return(
       <Accordion key={profile._id}>

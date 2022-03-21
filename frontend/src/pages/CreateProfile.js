@@ -8,7 +8,7 @@ import {createProfile,updateProfile} from '../actions/profilesActions'
 import MainScreen from "../components/MainScreen";
 import {getProfiles} from "../actions/profilesActions";
 
-export default function CreateProfile() {
+export default function CreateProfile({currentId,setCurrentId}) {
 
   const [fname,setfname]=useState("")
   const [sname,setsname]=useState("")
@@ -32,10 +32,9 @@ export default function CreateProfile() {
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
 
-
-  /* const profile = useSelector((state) =>
-   (currentId ? state.profilesList.find((message) => message._id === currentId) : null)); */
-
+  const profile = useSelector((state) => currentId?state.profilesList.find((p)=>p._id === currentId):null);
+ //const { profile} = profile;
+console.log(profile)
   //const profileCreate = useSelector((state) => state.profileCreate)
   //const{profile}=profileCreate
 
@@ -46,10 +45,9 @@ export default function CreateProfile() {
   },[profile]); */
 
   useEffect(() => {
-    dispatch(getProfiles());
+    dispatch(updateProfile());
   }, [
-    dispatch,
-    userInfo
+    profile
   ]);
 
   const resetHandler = () => {
@@ -57,14 +55,19 @@ export default function CreateProfile() {
   };
 
   const handleSubmit = async (e) => {
-    //e.preventDefault();
-    dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
+    e.preventDefault();
+    if(currentId){
+      dispatch(updateProfile(currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture))
+    }else{
+      dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture));
+    }
+
     //resetHandler();
 
   };
 
   return (
-    <MainScreen title="Create a profile">
+    <MainScreen  title={currentId? "Update profile" :"Create a profile"}>
       <div className="profile-container">
         <br />
         <Form onSubmit={handleSubmit} className="formProfile">
@@ -74,7 +77,7 @@ export default function CreateProfile() {
                 <Form.Label>Firstname</Form.Label>
                 <Form.Control
                   name="fname"
-                  value={fname}
+                  value={profile.fname}
                   placeholder="Enter Firstname"
                  onChange={(e)=>setfname(e.target.value)}
                 />
@@ -85,7 +88,7 @@ export default function CreateProfile() {
                 <Form.Label>Surname</Form.Label>
                 <Form.Control
                    name="sname"
-                   value={sname}
+                   value={profile.sname}
                    placeholder="Enter Surtname"
                   onChange={(e)=>setsname(e.target.value)}
                 />
@@ -98,7 +101,7 @@ export default function CreateProfile() {
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                    name="email"
-                   value={email}
+                   value={profile.email}
                    placeholder="Enter Email"
                   onChange={(e)=>setemail(e.target.value)}
                 />
@@ -112,7 +115,7 @@ export default function CreateProfile() {
                 <Form.Label>Location</Form.Label>
                 <Form.Control
                   name="location"
-                  value={location}
+                  value={profile.location}
                   placeholder="Enter location"
                  onChange={(e)=>setlocation(e.target.value)}
                 />
@@ -126,7 +129,7 @@ export default function CreateProfile() {
              as="textarea"
              rows={5}
              name="bio"
-             value={bio}
+             value={profile.bio}
             placeholder="Tell us about yourself."
             onChange={(e)=>setbio(e.target.value)}
             />
@@ -137,7 +140,7 @@ export default function CreateProfile() {
                 <Form.Label>Portfolio</Form.Label>
                 <Form.Control
                    name="portfolio"
-                   value={portfolio}
+                   value={profile.portfolio}
                    placeholder="Enter portfolio"
                   onChange={(e)=>setportfolio(e.target.value)}
                 />
@@ -150,7 +153,7 @@ export default function CreateProfile() {
                 </Form.Label>
                 <Form.Control
                   name="github"
-                  value={github}
+                  value={profile.github}
                   placeholder="Enter github"
                  onChange={(e)=>setgithub(e.target.value)}
                 />
@@ -163,7 +166,7 @@ export default function CreateProfile() {
                 </Form.Label>
                 <Form.Control
                   name="linkedin"
-                  value={linkedin}
+                  value={profile.linkedin}
                   placeholder="Enter linkedin"
                  onChange={(e)=>setlinkedin(e.target.value)}
                 />
@@ -174,8 +177,9 @@ export default function CreateProfile() {
             <Form.Label>Profile Photo</Form.Label>
             <Form.Control
               name="picture"
-              value={picture}
-              placeholder="Enter picture"
+              value={profile.picture}
+              type="link"
+              placeholder="Profile Photo"
              onChange={(e)=>setpicture(e.target.value)}
             />
           </Form.Group>
@@ -191,7 +195,7 @@ export default function CreateProfile() {
                 <Form.Label>or URL</Form.Label>
                 <Form.Control
                   name="cv"
-                  value={cv}
+                  value={profile.cv}
                   placeholder="cv"
                  onChange={(e)=>setcv(e.target.value)}
                 ></Form.Control>
@@ -202,8 +206,9 @@ export default function CreateProfile() {
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
               name="available"
-              value={available}
-              placeholder="Available For Work?"
+              value={profile.available}
+              type="checkbox"
+              label="Available For Work?"
               onChange={(e)=>setavailable(e.target.value)}
             />
           </Form.Group>
