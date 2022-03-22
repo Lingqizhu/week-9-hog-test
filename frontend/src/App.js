@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import LandingPage from "./pages/landing";
 import { Container } from "react-bootstrap";
@@ -12,10 +12,17 @@ import CreateProfile from "./pages/CreateProfile";
 import Profile from "./pages/profile";
 import Layout from "./Layout";
 import RequireAuth from "./RequireAuth";
+import { useDispatch,useSelector } from "react-redux";
+import {getProfiles} from "./actions/profilesActions";
 
 function App() {
   const [search, setSearch] = useState("");
   const [currentId,setCurrentId] = useState(null)
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+    dispatch(getProfiles())
+  },[currentId,dispatch])
 
   return (
     <Router>

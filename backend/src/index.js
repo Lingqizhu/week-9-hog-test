@@ -8,15 +8,12 @@ const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcryptjs");
-//const {canViewData} = require("./project")
 const { User } = require("../models/user");
 const { Profile } = require("../models/profile");
 const { Employer } = require("../models/employer");
+//import dotenv from 'dotenv';
 
-
-mongoose.connect(
-  "mongodb+srv://Lingqizhu:Peggy1980122@cluster0.k9dxo.mongodb.net/Jobsite?retryWrites=true&w=majority"
-);
+mongoose.connect("mongodb+srv://Lingqizhu:Peggy1980122@cluster0.k9dxo.mongodb.net/Jobsite?retryWrites=true&w=majority");
 
 // defining the Express app
 const app = express();
@@ -127,8 +124,9 @@ app.put("/update/:id", async (req, res) => {
 }); */
 
 // starting the server
+
 app.listen(3001, () => {
-  console.log("listening on port 3001");
+  console.log('listening on port: 3001');
 });
 
 var db = mongoose.connection;
@@ -136,3 +134,11 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function callback() {
   console.log("Database connected!");
 });
+
+/* const PORT = process.env.PORT || 5000;
+const CONNECTION_URL = process.env.CONNECTION_URL;
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+  .catch((error) => console.log(`${error} did not connect`));
+
+mongoose.set('useFindAndModify', false); */

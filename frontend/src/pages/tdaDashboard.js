@@ -3,8 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
 import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesActions";
-
 import { useDispatch,useSelector } from "react-redux";
+import {
+  BsFillHandThumbsUpFill,
+  BsFillHandThumbsDownFill,
+} from "react-icons/bs";
+
 
 export default function TdaDashboard({search,setCurrentId}) {
 
@@ -24,6 +28,22 @@ export default function TdaDashboard({search,setCurrentId}) {
   dispatch,
   userInfo
 ]);
+
+const isAvailable = (bCheck) => {
+  if (bCheck == true) {
+    return [
+      <span className="ad-available">
+        I'm Available For Hire <BsFillHandThumbsUpFill />
+      </span>,
+    ];
+  } else {
+    return [
+      <span className="ad-not-available">
+        I'm Unavailable <BsFillHandThumbsDownFill />
+      </span>,
+    ];
+  }
+};
 
   const buildcard=()=>{
     return profilesList
@@ -50,6 +70,8 @@ export default function TdaDashboard({search,setCurrentId}) {
               <br/>
               <br/>
               {profile.location}
+
+
               </Accordion.Header>
           </span>
           <div>
@@ -72,6 +94,7 @@ export default function TdaDashboard({search,setCurrentId}) {
             <blockquote className="blockquote mb-0">
               <p> Skills:{' '}{profile.skills.map((skill)=>`#${skill}`)}</p>
               <p> {profile.bio}</p>
+              <p>{isAvailable(profile.available)}</p>
               <br />
               <footer className="blockquote-footer">
                Update date:

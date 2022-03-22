@@ -4,7 +4,7 @@ import "./LandingStyles.css";
 import { useDispatch,useSelector } from "react-redux";
 import {getProfiles} from "../actions/profilesActions";
 
-function LandingPage(history) {
+function LandingPage() {
   const dispatch = useDispatch();
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;

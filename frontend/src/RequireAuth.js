@@ -14,7 +14,7 @@ const RequireAuth = ({allowedRoles})=>{
     return (
         allowedRoles.includes(userInfo.role)?
         <Outlet/>
-        :<Link to="/"/>
+        :alert("you are not allowed")&&<Link to="/"/>
     );
 }
 

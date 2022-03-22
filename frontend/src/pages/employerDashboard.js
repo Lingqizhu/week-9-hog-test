@@ -38,7 +38,8 @@ const handClick=(_id)=>{
 
   const buildcard=()=>{
     return profilesList
-    /* .reverse() */
+    .reverse()
+    .filter((availbaleprofile)=>availbaleprofile.available===true)
     .filter((filteredprofile)=>filteredprofile.location.toLowerCase().includes(search.toLowerCase()))
     .map((profile)=>{
       return(
@@ -82,7 +83,8 @@ const handClick=(_id)=>{
           <Card.Body>
             <Badge varian="success">{profile.avaiable}</Badge>
             <blockquote className="blockquote mb-0">
-              <p> {profile.skills}</p>
+            <br/>
+            <p> Skills:{' '}{profile.skills.map((skill)=>`#${skill}`)}</p>
               <p> {profile.bio}</p>
               <br />
               <footer className="blockquote-footer">
