@@ -57,7 +57,7 @@ const navigate=useNavigate();
             <Form className="d-flex">
               <FormControl
                 type="search"
-                placeholder="Search"
+                placeholder="Search skill"
                 className="me-2"
                 aria-label="Search"
                 onChange={(e)=>setSearch(e.target.value)}
