@@ -15,6 +15,7 @@ const profileSchema = mongoose.Schema({
   location: String,
   picture: String,
   skills: Array,
+  hired:Boolean
 },
 {
   timestamps:true

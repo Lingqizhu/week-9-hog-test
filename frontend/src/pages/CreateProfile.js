@@ -22,6 +22,7 @@ console.log(currentId)
   const [picture,setpicture]=useState("")
   const [skills,setskills]=useState([])
   const [available,setavailable]=useState(false)
+  const [hired,sethired]=useState(false)
   const navigate=useNavigate();
   const dispatch = useDispatch();
   const profilesList = useSelector((state) => state.profilesList);
@@ -38,7 +39,7 @@ console.log(currentId)
 
   useEffect(() => {
     if(profile){
-      setfname(profile.fname);setsname(profile.sname);setemail(profile.email);setbio(profile.bio);setcv(profile.cv);setgithub(profile.github);setlinkedin(profile.linkedin);setportfolio(profile.portfolio);setavailable(profile.available);setlocation(profile.location);setpicture(profile.picture);setskills([profile.skills])}
+      setfname(profile.fname);setsname(profile.sname);setemail(profile.email);setbio(profile.bio);setcv(profile.cv);setgithub(profile.github);setlinkedin(profile.linkedin);setportfolio(profile.portfolio);setavailable(profile.available);setlocation(profile.location);setpicture(profile.picture);setskills([profile.skills]);sethired(profile.hired)}
       else{
         dispatch(getProfiles());
       }
@@ -47,16 +48,16 @@ console.log(currentId)
   ]);
 
   const resetHandler = () => {
-    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable("");setlocation("");setpicture("");setskills([]);
+    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable("");setlocation("");setpicture("");setskills([]);sethired("")
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(currentId.currentId){
-      dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills));
+      dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills,hired));
       userInfo.role==="tda"?navigate('/tdaDashboard'):navigate('/participantDashboard')
     }else{
-      dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills));
+      dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills,hired));
       navigate('/participantDashboard')
     }
     resetHandler();
@@ -228,6 +229,14 @@ console.log(currentId)
               value={available}
               label="Available For Work?"
               onChange={(e)=>setavailable(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check
+              name="hired"
+              value={hired}
+              label="hired?"
+              onChange={(e)=>sethired(e.target.value)}
             />
           </Form.Group>
           <Button variant="primary" type="submit">
