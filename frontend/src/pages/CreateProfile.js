@@ -24,17 +24,16 @@ console.log(currentId)
   const [available,setavailable]=useState(false)
   const navigate=useNavigate();
   const dispatch = useDispatch();
-
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   console.log(userLogin)
   console.log(userInfo)
   console.log(profilesList)
+  console.log(profiles)
 
-  const profile = useSelector((state) => currentId?state.profilesList.find((p)=>p._id === currentId.currentId):null);
+  const profile = useSelector((state) => currentId?state.profilesList.profiles.find((p)=>p._id === currentId.currentId):null);
   console.log(profile)
 
   useEffect(() => {

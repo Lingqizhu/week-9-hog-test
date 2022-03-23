@@ -8,12 +8,12 @@ function LandingPage() {
   const dispatch = useDispatch();
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   console.log(userLogin)
   console.log(userInfo)
   console.log(profilesList)
+  console.log(profiles)
   useEffect(() => {
     dispatch(getProfiles());
   }, [
@@ -32,7 +32,7 @@ function LandingPage() {
             </div>
             <div className="buttonContainer">
 
-              <a href={profilesList.map((p)=>p.email).includes(userInfo.email)?"/participantDashboard":"/createprofile"}>
+              <a href={profiles.map((p)=>p.email).includes(userInfo.email)?"/participantDashboard":"/createprofile"}>
                 <Button size="lg" className="landingbutton">
                 I am a participant
                 </Button>

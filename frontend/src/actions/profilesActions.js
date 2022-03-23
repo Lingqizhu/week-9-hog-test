@@ -2,7 +2,9 @@ import {
   PROFILES_LIST,
   PROFILE_CREATE,
   PROFILE_UPDATE,
-  PROFILE_DELETE } from '../constants/profilesConstants';
+  PROFILE_DELETE,
+  PROFILE_DETAIL
+} from '../constants/profilesConstants';
   import axios from "axios";
   //import { useSelector } from "react-redux";
   const url = "http://localhost:3001/";
@@ -76,5 +78,22 @@ export const deleteProfile = (id) => async (dispatch,getState) => {
     );
 
     dispatch({ type: PROFILE_DELETE, payload: id });
+
+};
+
+export const getProfile = (id) => async (dispatch,getState) => {
+
+  const {userLogin:{userInfo}}=getState();
+    const config = {
+      headers: {
+        Authorization: `${userInfo.token}`
+      },
+    };
+    const { data } = await axios.get(
+      `${url}profiles/${id}`,
+      config
+    );
+    dispatch({ type: PROFILE_DETAIL, payload: data });
+
 
 };

@@ -1,4 +1,5 @@
 import React, { useState,useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Badge, Button, Card, Accordion } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
@@ -6,16 +7,16 @@ import {getProfiles,updateProfile,deleteProfile} from "../actions/profilesAction
 import { useDispatch,useSelector } from "react-redux";
 
 export default function EmployerDashboard({history,search}) {
-  const [mark, setMark] = useState("Mark")
+  const navigate=useNavigate();
   const dispatch = useDispatch();
-
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   console.log(userLogin)
   console.log(userInfo)
+  console.log(profilesList)
+  console.log(profiles)
 
  useEffect(() => {
   dispatch(getProfiles());
@@ -28,16 +29,13 @@ export default function EmployerDashboard({history,search}) {
   userInfo
 ]);
 
-const handClick=(_id)=>{
-
-  /* e.target.style.color = 'red' */
+/* const handClick=(_id)=>{
+e.target.style.color = 'red'
   setMark(_id)
- }
-
-  console.log(profilesList)
+ } */
 
   const buildcard=()=>{
-    return profilesList
+    return profiles
     .reverse()
     .filter((availbaleprofile)=>availbaleprofile.available===true)
     .filter((filteredprofile)=>filteredprofile.location.toLowerCase().includes(search.toLowerCase()))
@@ -65,11 +63,11 @@ const handClick=(_id)=>{
               </Accordion.Header>
           </span>
           <div>
+            <br/>
             <Button
-              variant="success"  onClick={()=>handClick(profile._id)}
+              variant="success"  onClick={()=>navigate(`/profile/${profile._id}`)}
             >
-            {mark==profile._id ? "Marked": "Mark"}
-             {/*  Mark */}
+          Details
             </Button>
             <br/>
             <br/>

@@ -11,16 +11,16 @@ import {
 
 
 export default function TdaDashboard({search,setCurrentId}) {
-
-  const dispatch = useDispatch();
   const navigate=useNavigate();
-
+  const dispatch = useDispatch();
   const profilesList = useSelector((state) => state.profilesList);
   const { profiles } = profilesList;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   console.log(userLogin)
+  console.log(userInfo)
   console.log(profilesList)
+  console.log(profiles)
 
  useEffect(() => {
   dispatch(getProfiles());
@@ -46,7 +46,7 @@ const isAvailable = (bCheck) => {
 };
 
   const buildcard=()=>{
-    return profilesList
+    return profiles
     .reverse()
     .filter((filteredprofile)=>filteredprofile.location.toLowerCase().includes(search.toLowerCase()))
     .map((profile)=>{

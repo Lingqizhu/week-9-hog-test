@@ -9,7 +9,7 @@ import ParticipantDashboard from "./pages/participantDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateProfile from "./pages/CreateProfile";
-import Profile from "./pages/profile";
+import ProfileDetail from "./pages/profileDetail";
 import Layout from "./Layout";
 import RequireAuth from "./RequireAuth";
 import { useDispatch,useSelector } from "react-redux";
@@ -51,7 +51,7 @@ function App() {
           </Route>
           <Route
             element={<RequireAuth allowedRoles={["participant", "tda","employer"]} />} >
-            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile/:id" element={<ProfileDetail/>} />
           </Route>
         </Route>
       </Routes>
