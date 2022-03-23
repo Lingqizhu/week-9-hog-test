@@ -11,11 +11,17 @@ const profileSchema = mongoose.Schema({
   github: String,
   linkedin: String,
   portfolio: String,
-  available: Boolean,
+  available:{
+    type:Boolean,
+    default:true
+  },
   location: String,
   picture: String,
   skills: Array,
-  hired:Boolean
+  hired:{
+    type:Boolean,
+    default:false
+  }
 },
 {
   timestamps:true

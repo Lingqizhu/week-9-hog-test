@@ -48,7 +48,7 @@ console.log(currentId)
   ]);
 
   const resetHandler = () => {
-    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable("");setlocation("");setpicture("");setskills([]);sethired("")
+    setfname("");setsname("");setemail("");setbio("");setcv("");setgithub("");setlinkedin("");setportfolio("");setavailable(false);setlocation("");setpicture("");setskills([]);sethired(false)
   };
 
   const handleSubmit = async (e) => {
@@ -225,18 +225,22 @@ console.log(currentId)
 
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="Available For Work?"
               name="available"
               value={available}
-              label="Available For Work?"
-              onChange={(e)=>setavailable(e.target.value)}
+              onChange={(e)=>setavailable(e.target.checked)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="hired?"
               name="hired"
               value={hired}
-              label="hired?"
-              onChange={(e)=>sethired(e.target.value)}
+              onChange={(e)=>sethired(e.target.checked)}
             />
           </Form.Group>
           <Button variant="primary" type="submit">

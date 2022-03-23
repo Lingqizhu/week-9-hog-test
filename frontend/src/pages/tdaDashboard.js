@@ -44,6 +44,21 @@ const isAvailable = (bCheck) => {
     ];
   }
 };
+const isHired = (bCheck) => {
+  if (bCheck == true) {
+    return [
+      <span className="ad-available">
+        I'm Hired <BsFillHandThumbsUpFill />
+      </span>,
+    ];
+  } else {
+    return [
+      <span className="ad-not-available">
+        I'm Unhired <BsFillHandThumbsDownFill />
+      </span>,
+    ];
+  }
+};
 
   const buildcard=()=>{
     return profiles
@@ -95,6 +110,7 @@ const isAvailable = (bCheck) => {
               <p> Skills:{' '}{profile.skills.map((skill)=>`#${skill}`)}</p>
               <p> {profile.bio}</p>
               <p>{isAvailable(profile.available)}</p>
+              <p>{isHired(profile.hired)}</p>
               <br />
               <footer className="blockquote-footer">
                Update date:
