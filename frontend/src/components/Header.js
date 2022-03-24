@@ -50,8 +50,8 @@ const navigate=useNavigate();
                  Logout
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#" disabled>
-                Link
+              <Nav.Link href="/piechart">
+                Statistics
               </Nav.Link>
             </Nav>
             <Form className="d-flex">

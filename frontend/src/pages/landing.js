@@ -18,7 +18,6 @@ function LandingPage() {
     dispatch(getProfiles());
   }, [
     dispatch,
-
     userInfo
   ]);
 

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
+import PieChart from "./components/PieChart";
 import LandingPage from "./pages/landing";
 import { Container } from "react-bootstrap";
 import TdaDashboard from "./pages/tdaDashboard";
@@ -35,6 +36,7 @@ function App() {
 
           <Route
             element={<RequireAuth allowedRoles={["tda"]} />}>
+            <Route path="/piechart" element={<PieChart />} />
             <Route path="/tdaDashboard" element={<TdaDashboard search={search} setCurrentId={setCurrentId} />}/>
           </Route>
           <Route

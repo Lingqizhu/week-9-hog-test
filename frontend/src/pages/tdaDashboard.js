@@ -127,6 +127,9 @@ const isHired = (bCheck) => {
   return (
     <>
       <MainScreen title={`welcome back ${userInfo.username}`}>
+      <Button onClick={()=>navigate('/piechart')} >
+              Show Statistics
+            </Button>
         <div>{buildcard()}</div>
       </MainScreen>
     </>

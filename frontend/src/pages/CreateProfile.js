@@ -230,7 +230,7 @@ console.log(currentId)
               label="Available For Work?"
               name="available"
               value={available}
-              onChange={(e)=>setavailable(e.target.checked)}
+              onChange={(e)=>setavailable(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -240,7 +240,7 @@ console.log(currentId)
               label="hired?"
               name="hired"
               value={hired}
-              onChange={(e)=>sethired(e.target.checked)}
+              onChange={(e)=>sethired(e.target.value)}
             />
           </Form.Group>
           <Button variant="primary" type="submit">
