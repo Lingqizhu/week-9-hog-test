@@ -3,7 +3,8 @@ import {
   USER_LOGOUT,
 } from "../constants/userConstants";
 import axios from "axios";
-const url = "http://localhost:3001/";
+const url = "https://jobsite-backend-lin.herokuapp.com/";
+//const url = "http://localhost:3001/";
 
 export const login = (email, password) => async (dispatch) => {
 

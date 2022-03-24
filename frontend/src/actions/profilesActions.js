@@ -7,7 +7,8 @@ import {
 } from '../constants/profilesConstants';
   import axios from "axios";
   //import { useSelector } from "react-redux";
-  const url = "http://localhost:3001/";
+  const url = "https://jobsite-backend-lin.herokuapp.com/";
+  //const url = "http://localhost:3001/";
 
 export const getProfiles = () => async (dispatch,getState) => {
 

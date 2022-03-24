@@ -11,13 +11,12 @@ const bcrypt = require("bcryptjs");
 const { User } = require("../models/user");
 const { Profile } = require("../models/profile");
 const { Employer } = require("../models/employer");
-//import dotenv from 'dotenv';
 
 mongoose.connect("mongodb+srv://Lingqizhu:Peggy1980122@cluster0.k9dxo.mongodb.net/Jobsite?retryWrites=true&w=majority");
 
 // defining the Express app
 const app = express();
-
+const port = process.env.PORT || 3001;
 // adding Helmet to enhance your API's security
 app.use(helmet());
 
@@ -29,6 +28,10 @@ app.use(cors());
 
 // adding morgan to log HTTP requests
 app.use(morgan("combined"));
+
+app.get('/',(req,res)=>{
+  res.send('hello')
+})
 
 app.post("/register", async (req, res) => {
   const newPassword = await bcrypt.hash(req.body.password, 10);
@@ -125,8 +128,8 @@ app.put("/update/:id", async (req, res) => {
 
 // starting the server
 
-app.listen(3001, () => {
-  console.log('listening on port: 3001');
+app.listen(port, () => {
+  console.log(`listening on port: ${port}`);
 });
 
 var db = mongoose.connection;

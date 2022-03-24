@@ -20,7 +20,6 @@ function LandingPage() {
     dispatch,
     userInfo
   ]);
-
   return (
     <div className="main">
       <Container>
