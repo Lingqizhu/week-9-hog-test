@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfiles } from "../actions/profilesActions";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { Container } from "react-bootstrap";
 
 export default function PieChart() {
   const dispatch = useDispatch();
@@ -59,15 +60,19 @@ export default function PieChart() {
 
   const options = {
     plugins: {
-      data1labels: {
+      datalabels: {
         color: "white",
       },
     },
   };
   return (
-    <div style={{ width: 500, display: "flex" }}>
-      <Pie data={data1} options={options} />
-      <Pie data={data2} options={options} />
-    </div>
+    <Container>
+      <div style={{ width: 600, display: "flex", padding:"20px"}}>
+        <p>Available Participant</p>
+        <Pie data={data1} options={options} />
+        <p>Hired Participant</p>
+        <Pie data={data2} options={options} />
+      </div>
+    </Container>
   );
 }

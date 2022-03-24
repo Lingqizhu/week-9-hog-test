@@ -21,8 +21,7 @@ export default function TdaDashboard({search,setCurrentId}) {
  useEffect(() => {
   dispatch(getProfiles());
 }, [
-  dispatch,
-  userInfo
+dispatch,profiles
 ]);
 
   const buildcard=()=>{

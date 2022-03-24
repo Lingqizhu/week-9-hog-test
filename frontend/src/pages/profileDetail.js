@@ -84,7 +84,7 @@ e.target.style.color = 'red'
 
                 <Card.Text className="center">
                 <a href={profile.cv}>
-                  <Button variant="success">Download CV</Button>
+                  <Button variant="success">CV</Button>
                 </a>&nbsp;&nbsp;
                 <a href={profile.portfolio}>
                   <Button variant="success">Portfolio</Button>

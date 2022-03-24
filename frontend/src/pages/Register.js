@@ -12,7 +12,7 @@ function Register() {
 
   async function registerUser(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:3001/register", {
+    const response = await fetch("https://jobsite-backend-lin.herokuapp.com/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
