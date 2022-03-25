@@ -41,7 +41,7 @@ export default function PieChart() {
     datasets: [
       {
         label: "available",
-        data: [hiredParticipantNum, unhiredParticipantNum],
+        data: [availableParticipantNum, unavailableParticipantNum],
         backgroundColor: ["#2a71d0", "#ecf0f1"],
       },
     ],
@@ -52,7 +52,7 @@ export default function PieChart() {
     datasets: [
       {
         label: "hired",
-        data: [availableParticipantNum, unavailableParticipantNum],
+        data: [hiredParticipantNum, unhiredParticipantNum],
         backgroundColor: ["#f3ba2f", "#ecf0f1"],
       },
     ],

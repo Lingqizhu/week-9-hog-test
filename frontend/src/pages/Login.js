@@ -19,14 +19,14 @@ function Login({history}) {
 
  useEffect(() => {
   if (userInfo) {
-    navigate("/register")
+    navigate("/landingpage")
   }
 }, [history, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    navigate("/landingpage");
+    /* navigate("/landingpage"); */
   };
 
   return (

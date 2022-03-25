@@ -23,7 +23,7 @@ function App() {
 
   useEffect(()=>{
     dispatch(getProfiles())
-  },[currentId,dispatch])
+  },[])
 
   return (
     <Router>

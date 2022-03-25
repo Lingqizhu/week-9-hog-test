@@ -14,12 +14,11 @@ function LandingPage() {
   console.log(userInfo)
   console.log(profilesList)
   console.log(profiles)
+
   useEffect(() => {
     dispatch(getProfiles());
-  }, [
-    dispatch,
-    userInfo
-  ]);
+  }, []);
+
   return (
     <div className="main">
       <Container>

@@ -8,6 +8,8 @@ import {
   Button,
   Card,
   Accordion,
+  Dropdown,
+  DropdownButton
 } from "react-bootstrap";
 import MainScreen from "../components/MainScreen";
 import {
@@ -17,8 +19,9 @@ import {
 } from "../actions/profilesActions";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function EmployerDashboard({ history, search }) {
+export default function EmployerDashboard({ history, search, select }) {
   const [searchSkill, setSearchSkill] = useState();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const profilesList = useSelector((state) => state.profilesList);
@@ -37,13 +40,8 @@ export default function EmployerDashboard({ history, search }) {
     }
   }, [dispatch, history, userInfo]);
 
-  /* const handClick=(_id)=>{
-e.target.style.color = 'red'
-  setMark(_id)
- } */
-
-
   const buildcard = () => {
+
     return profiles
       .reverse()
       .filter((availbaleprofile) => availbaleprofile.available === true)

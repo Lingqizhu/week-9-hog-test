@@ -46,7 +46,7 @@ export const createProfile = (fname,sname,email,bio,cv,github,linkedin,portfolio
 };
 
 export const updateProfile = (id, fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills,hired) => async (dispatch,getState) => {
-
+    console.log("updateprofile", available)
     const {userLogin:{userInfo}}=getState();
     const config = {
       headers: {

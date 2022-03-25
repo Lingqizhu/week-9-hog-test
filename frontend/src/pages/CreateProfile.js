@@ -56,6 +56,7 @@ console.log(currentId)
     if(currentId.currentId){
       dispatch(updateProfile(currentId.currentId,fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills,hired));
       userInfo.role==="tda"?navigate('/tdaDashboard'):navigate('/participantDashboard')
+     console.log(available)
     }else{
       dispatch(createProfile(fname,sname,email,bio,cv,github,linkedin,portfolio,available,location,picture,skills,hired));
       navigate('/participantDashboard')
@@ -230,8 +231,9 @@ console.log(currentId)
               label="Available For Work?"
               name="available"
               value={available}
-              onChange={(e)=>setavailable(e.target.value)}
+              onChange={(e)=>setavailable(e.target.checked)}
             />
+
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
@@ -240,7 +242,7 @@ console.log(currentId)
               label="hired?"
               name="hired"
               value={hired}
-              onChange={(e)=>sethired(e.target.value)}
+              onChange={(e)=>sethired(e.target.checked)}
             />
           </Form.Group>
           <Button variant="primary" type="submit">
